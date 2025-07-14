@@ -33,20 +33,20 @@ resources/plc.md
 ```
 
 ```{toctree}
-:caption: Demo
+:caption: Demos
 
-integrated_demo.md
+integrated_demo_2024.md
 loop_demo.md
 ```
-
+<!-- 
 ```{toctree}
 :caption: Utilities
 utilities.md
-```
+``` -->
 
 ```{toctree}
 :caption: Tutorials
 
-tutorials/robot_arms.md
+tutorials/fanuc_ros1.md
 tutorials/amr.md
 ```
