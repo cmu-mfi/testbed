@@ -1,8 +1,0 @@
-# Robot Arms
-
-```{contents}
-```
-
-***
-
-TODO
