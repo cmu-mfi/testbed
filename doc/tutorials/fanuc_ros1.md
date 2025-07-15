@@ -12,9 +12,8 @@ ROS interface uses the ROS-Industrial stack to plan and execute trajectory. The 
 ![MotoROS](../files/ros_industrial_architecture.png)
 *Source: [http://wiki.ros.org/Industrial](http://wiki.ros.org/Industrial)*
 
-- **ROS-I Controller Layer** is setup at the robot controller (R-30iB+). [Details ... update link](www.example.com) \
+- **ROS-I Controller Layer** is setup at the robot controller (R-30iB+). [Details](https://wiki.ros.org/fanuc/Tutorials/hydro/Installation) \
 
-**TODO: Update the Details link**
 </br></br>
 
 - **ROS-I Interface Layer** \
@@ -45,21 +44,27 @@ The setPose_test.py script contains an example pose to test the /fc_set_pose ser
 ```shell
 python3 ~/ros1_ws/src/fc_tasks/scripts/setPose_test.py
 ```
+![SetPose](../files/setPoseService.gif)
+
 ### ExecuteCartesianTrajectory Service Test
 The cartTraj_test.py script contains a trajectory with 2 waypoints to test the /fc_execute_cartesian_trajectory service. Modify this as required to test. 
 ```shell
 python3 ~/ros1_ws/src/fc_tasks/scripts/cartTraj_test.py
 ```
+![CartTraj](../files/cartTrajService.gif)
+
 ### GoToPose Action Test 
 The goToPoseAction_test.py script contains an example pose to test the /fc_go_to_pose action server. 
 ```shell
 python3 ~/ros1_ws/src/fc_tasks/scripts/goToPoseAction_test.py
 ```
+Same output as SetPose Service Test.
 ### ExecuteCartesianTrajectory Action Test 
 The execTrajAction_test.py contains a trajectory with 2 waypoints to test the /fc_execute_cartesian_trajectory_action action server. 
 ```shell
 python3 ~/ros1_ws/src/fc_tasks/scripts/execTrajAction_test.py
 ```
+Same output as ExecuteCartesianTrajectory Service Test.
 
 <hr>
 
@@ -68,7 +73,7 @@ python3 ~/ros1_ws/src/fc_tasks/scripts/execTrajAction_test.py
 <a href="https://github.com/cmu-mfi/fanuc_ros1" class="inline-button"><i class="fab fa-github"></i>fanuc_ros1</a> can be used for any FANUC robot arm with a R-30iB+ controller. This tutorial explains how to configure the interface for a different FANUC robot arm, such as the LR Mate 200iD/7L.
 
 ```{note}
-This tutorial assumes that the new package is built in a container with the same image as fanuc_ros1. If using a different environment, all dependencies must be satisfied manually as Noetic is now EOL. 
+This tutorial assumes that the new package is built in a docker container with the same image as fanuc_ros1. If using a different environment, all dependencies must be satisfied manually as Noetic is now EOL. Follow [installations](https://github.com/cmu-mfi/fanuc_ros1?tab=readme-ov-file#installation)
 ```
 
 ### Making changes
@@ -80,7 +85,7 @@ This tutorial assumes that the new package is built in a container with the same
 5. Inside the moveit_config package, add the namespaced controllers to the 'config/controllers.yaml' file. Refer 'fanuc_lrmate200id7l_moveit_config'. 
 6. Go through the moveit_config launch and config files to see if any file are missing/have different structures due to software updates. 
 
-**TODO: Add a PR to the fanuc_ros1 repository by doing the above changes for a new robot arm.**
+<!-- **TODO: Add a PR to the fanuc_ros1 repository by doing the above changes for a new robot arm.** -->
 
 ```{note}
 Most common differences are found in 'move_group.launch', 'moveit_planning_execution.launch' and 'trajectory_execution.launch.xml'. Check all namespaces match this repository
