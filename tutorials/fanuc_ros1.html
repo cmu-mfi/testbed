@@ -1,0 +1,302 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FANUC ROS1 Interface &mdash; MFI Testbed 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=066d2f63" />
+      <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
+
+  
+    <link rel="shortcut icon" href="../_static/white-logo.ico"/>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Autonomous Mobile Robots" href="amr.html" />
+    <link rel="prev" title="Loop Demo" href="../loop_demo.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            MFI Testbed
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../system_overview.html">System Overview</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Testbed Resources</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../resources/mes.html">Manufacturing Executive System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../resources/robot_arms.html">Robot Arms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../resources/amr.html">Autonomous Mobile Robots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../resources/plc.html">Safety Light Curtains</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Demos</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../integrated_demo_2024.html">Integrated Demo 2024</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../loop_demo.html">Loop Demo</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">FANUC ROS1 Interface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#motion-stack-and-moveit">Motion Stack and MoveIt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tutorial-1-using-scripts-to-test-actions-and-services">Tutorial 1 - Using scripts to test actions and services</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#setpose-service-test">SetPose Service Test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#executecartesiantrajectory-service-test">ExecuteCartesianTrajectory Service Test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gotopose-action-test">GoToPose Action Test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#executecartesiantrajectory-action-test">ExecuteCartesianTrajectory Action Test</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#tutorial-2-configuring-the-interface-for-another-fanuc-robot-arm">Tutorial 2 - Configuring the Interface for another Fanuc Robot Arm</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#making-changes">Making changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#testing-changes">Testing changes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="amr.html">Autonomous Mobile Robots</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MFI Testbed</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">FANUC ROS1 Interface</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/cmu-mfi/testbed/blob/master/doc/tutorials/fanuc_ros1.md" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="fanuc-ros1-interface">
+<h1><a class="toc-backref" href="#id1" role="doc-backlink">FANUC ROS1 Interface</a><a class="headerlink" href="#fanuc-ros1-interface" title="Link to this heading"></a></h1>
+<p>The <a href="https://github.com/cmu-mfi/fanuc_ros1" class="inline-button"><i class="fab fa-github"></i>fanuc_ros1</a> repository is a ROS1 interface for FANUC robot arms, specifically designed to work with the R-30iB+ controller. It provides a framework for motion planning and execution using MoveIt, along with various skills for industrial tasks.</p>
+<nav class="contents" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#fanuc-ros1-interface" id="id1">FANUC ROS1 Interface</a></p>
+<ul>
+<li><p><a class="reference internal" href="#motion-stack-and-moveit" id="id2">Motion Stack and MoveIt</a></p></li>
+<li><p><a class="reference internal" href="#tutorial-1-using-scripts-to-test-actions-and-services" id="id3">Tutorial 1 - Using scripts to test actions and services</a></p>
+<ul>
+<li><p><a class="reference internal" href="#setpose-service-test" id="id4">SetPose Service Test</a></p></li>
+<li><p><a class="reference internal" href="#executecartesiantrajectory-service-test" id="id5">ExecuteCartesianTrajectory Service Test</a></p></li>
+<li><p><a class="reference internal" href="#gotopose-action-test" id="id6">GoToPose Action Test</a></p></li>
+<li><p><a class="reference internal" href="#executecartesiantrajectory-action-test" id="id7">ExecuteCartesianTrajectory Action Test</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#tutorial-2-configuring-the-interface-for-another-fanuc-robot-arm" id="id8">Tutorial 2 - Configuring the Interface for another Fanuc Robot Arm</a></p>
+<ul>
+<li><p><a class="reference internal" href="#making-changes" id="id9">Making changes</a></p></li>
+<li><p><a class="reference internal" href="#testing-changes" id="id10">Testing changes</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+<section id="motion-stack-and-moveit">
+<h2><a class="toc-backref" href="#id2" role="doc-backlink">Motion Stack and MoveIt</a><a class="headerlink" href="#motion-stack-and-moveit" title="Link to this heading"></a></h2>
+<p>ROS interface uses the ROS-Industrial stack to plan and execute trajectory. The figure below represents the stack. Details and tutorials to setup the driver and interface can be found <a class="reference external" href="http://wiki.ros.org/fanuc/Tutorials">here</a>.</p>
+<p><img alt="MotoROS" src="../_images/ros_industrial_architecture.png" />
+<em>Source: <a class="reference external" href="http://wiki.ros.org/Industrial">http://wiki.ros.org/Industrial</a></em></p>
+<ul class="simple">
+<li><p><strong>ROS-I Controller Layer</strong> is setup at the robot controller (R-30iB+). <a class="reference external" href="https://wiki.ros.org/fanuc/Tutorials/hydro/Installation">Details</a> \</p></li>
+</ul>
+<p></br></br></p>
+<ul class="simple">
+<li><p><strong>ROS-I Interface Layer</strong> <br />
+<a class="reference external" href="https://github.com/cmu-mfi/fanuc_ros1/tree/main/fanuc_lrmate200id_support">fanuc_lrmate200id_support</a> <br />
+<a class="reference external" href="http://wiki.ros.org/fanuc">Open-source community</a> has a support package for many industrial robots, including LR Mate 200iD.
+</br></br></p></li>
+<li><p><strong>MoveIt Layer</strong> <br />
+<a class="reference external" href="https://github.com/cmu-mfi/fanuc_ros1/tree/main/fanuc_lrmate200id7l_moveit_config">fanuc_lrmate200id7l_moveit_config</a> <br />
+We developed moveit configuration package for LR Mate 200iD robots which is used for trajectory planning.
+</br></br></p></li>
+<li><p><strong>Application Layer</strong> <br />
+<a class="reference external" href="https://github.com/cmu-mfi/fanuc_ros1/tree/main/fc_tasks">fc_tasks</a> <br />
+We developed a set of services and actions to perform various industrial tasks using the robot arm. These allow to develop custom application using the robot arm without worrying about the underlying motion planning and execution.</p></li>
+</ul>
+<hr>
+</section>
+<section id="tutorial-1-using-scripts-to-test-actions-and-services">
+<h2><a class="toc-backref" href="#id3" role="doc-backlink">Tutorial 1 - Using scripts to test actions and services</a><a class="headerlink" href="#tutorial-1-using-scripts-to-test-actions-and-services" title="Link to this heading"></a></h2>
+<p>This repository comes with example scripts to test actions and services in ‘fc_tasks/scripts’. These are outlined below :</p>
+<p><strong>TODO: Add sim GIF images to the tests below to show expected output.</strong></p>
+<section id="setpose-service-test">
+<h3><a class="toc-backref" href="#id4" role="doc-backlink">SetPose Service Test</a><a class="headerlink" href="#setpose-service-test" title="Link to this heading"></a></h3>
+<p>The setPose_test.py script contains an example pose to test the /fc_set_pose service. Modify this as required to test. It’s a good idea to execute the same pose multiple times to ensure that all frames are calibrated correctly.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>~/ros1_ws/src/fc_tasks/scripts/setPose_test.py
+</pre></div>
+</div>
+<p><img alt="SetPose" src="../_images/setPoseService.gif" /></p>
+</section>
+<section id="executecartesiantrajectory-service-test">
+<h3><a class="toc-backref" href="#id5" role="doc-backlink">ExecuteCartesianTrajectory Service Test</a><a class="headerlink" href="#executecartesiantrajectory-service-test" title="Link to this heading"></a></h3>
+<p>The cartTraj_test.py script contains a trajectory with 2 waypoints to test the /fc_execute_cartesian_trajectory service. Modify this as required to test.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>~/ros1_ws/src/fc_tasks/scripts/cartTraj_test.py
+</pre></div>
+</div>
+<p><img alt="CartTraj" src="../_images/cartTrajService.gif" /></p>
+</section>
+<section id="gotopose-action-test">
+<h3><a class="toc-backref" href="#id6" role="doc-backlink">GoToPose Action Test</a><a class="headerlink" href="#gotopose-action-test" title="Link to this heading"></a></h3>
+<p>The goToPoseAction_test.py script contains an example pose to test the /fc_go_to_pose action server.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>~/ros1_ws/src/fc_tasks/scripts/goToPoseAction_test.py
+</pre></div>
+</div>
+<p>Same output as SetPose Service Test.</p>
+</section>
+<section id="executecartesiantrajectory-action-test">
+<h3><a class="toc-backref" href="#id7" role="doc-backlink">ExecuteCartesianTrajectory Action Test</a><a class="headerlink" href="#executecartesiantrajectory-action-test" title="Link to this heading"></a></h3>
+<p>The execTrajAction_test.py contains a trajectory with 2 waypoints to test the /fc_execute_cartesian_trajectory_action action server.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>~/ros1_ws/src/fc_tasks/scripts/execTrajAction_test.py
+</pre></div>
+</div>
+<p>Same output as ExecuteCartesianTrajectory Service Test.</p>
+<hr>
+</section>
+</section>
+<section id="tutorial-2-configuring-the-interface-for-another-fanuc-robot-arm">
+<h2><a class="toc-backref" href="#id8" role="doc-backlink">Tutorial 2 - Configuring the Interface for another Fanuc Robot Arm</a><a class="headerlink" href="#tutorial-2-configuring-the-interface-for-another-fanuc-robot-arm" title="Link to this heading"></a></h2>
+<p><a href="https://github.com/cmu-mfi/fanuc_ros1" class="inline-button"><i class="fab fa-github"></i>fanuc_ros1</a> can be used for any FANUC robot arm with a R-30iB+ controller. This tutorial explains how to configure the interface for a different FANUC robot arm, such as the LR Mate 200iD/7L.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This tutorial assumes that the new package is built in a docker container with the same image as fanuc_ros1. If using a different environment, all dependencies must be satisfied manually as Noetic is now EOL. Follow <a class="reference external" href="https://github.com/cmu-mfi/fanuc_ros1?tab=readme-ov-file#installation">installations</a></p>
+</div>
+<section id="making-changes">
+<h3><a class="toc-backref" href="#id9" role="doc-backlink">Making changes</a><a class="headerlink" href="#making-changes" title="Link to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p>Find the required support package and moveit config for the robot arm at <a class="reference external" href="https://github.com/ros-industrial/fanuc">fanuc</a>.</p></li>
+<li><p>Change the package.xml dependencies of <i>fc_tasks</i> and <i>fc_launch</i> to match the new moveit config package (fanuc_lrmate200id7l_moveit_config).</p></li>
+<li><p>Use the urdf file from the downloaded support package to find DH parameters of the new robot arm. Update the .json file in ‘/fc_tasks/config’ with the new values.</p></li>
+<li><p>In ‘fc_launch/launch/moveit.launch’, change the ‘fanuc_lrmate200id7l_moveit_config’ to the new moveit config package and update the ‘robot_ip’.</p></li>
+<li><p>Inside the moveit_config package, add the namespaced controllers to the ‘config/controllers.yaml’ file. Refer ‘fanuc_lrmate200id7l_moveit_config’.</p></li>
+<li><p>Go through the moveit_config launch and config files to see if any file are missing/have different structures due to software updates.</p></li>
+</ol>
+<!-- **TODO: Add a PR to the fanuc_ros1 repository by doing the above changes for a new robot arm.** -->
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Most common differences are found in ‘move_group.launch’, ‘moveit_planning_execution.launch’ and ‘trajectory_execution.launch.xml’. Check all namespaces match this repository</p>
+</div>
+</section>
+<section id="testing-changes">
+<h3><a class="toc-backref" href="#id10" role="doc-backlink">Testing changes</a><a class="headerlink" href="#testing-changes" title="Link to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p>Use the fanuc tutorials to ensure that connection with the robot is established and the required drivers are running.</p></li>
+<li><p>Ensure the moveit_config works standalone, before testing fc_launch. Use the following commands:</p></li>
+</ol>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>roslaunch<span class="w"> </span>fanuc_lrmate200id7l_moveit_config<span class="w"> </span>moveit_planning_execution.launch<span class="w"> </span>sim:<span class="o">=</span><span class="nb">true</span><span class="w"> </span>
+roslaunch<span class="w"> </span>fanuc_lrmate200id7l_moveit_config<span class="w"> </span>moveit_planning_execution.launch<span class="w"> </span>sim:<span class="o">=</span><span class="nb">false</span><span class="w"> </span>robot_ip:<span class="o">=</span>&lt;robot_ip&gt;
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Check fc_tasks runs in simulation by keeping sim:=true with no namespace.</p></li>
+</ol>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>roslaunch<span class="w"> </span>fc_launch<span class="w"> </span>moveit.launch<span class="w"> </span>sim:<span class="o">=</span><span class="nb">true</span><span class="w"> </span>namespace:<span class="o">=</span><span class="s1">&#39;&#39;</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>Test with a namespace.</p></li>
+</ol>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>roslaunch<span class="w"> </span>fc_launch<span class="w"> </span>moveit.launch<span class="w"> </span>sim:<span class="o">=</span><span class="nb">true</span><span class="w"> </span>namespace:<span class="o">=</span><span class="s1">&#39;sim1&#39;</span>
+</pre></div>
+</div>
+<p><strong>TODO: Add an image or GIF</strong></p>
+<ol class="arabic simple" start="5">
+<li><p>Test on a real robot.</p></li>
+</ol>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<ul class="simple">
+<li><p>Ensure the robot is in a safe state and the environment is clear of obstacles before executing commands on a real robot.</p></li>
+<li><p>Keep e-stop button ready to stop the robot in case of any unexpected behavior.</p></li>
+</ul>
+</div>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>roslaunch<span class="w"> </span>fc_launch<span class="w"> </span>moveit.launch<span class="w"> </span>sim:<span class="o">=</span><span class="nb">false</span><span class="w"> </span>namespace:<span class="o">=</span><span class="s1">&#39;real&#39;</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="6">
+<li><p>Check ‘plan and execute’ works in RViz by setting a ‘random valid’ goal.</p></li>
+<li><p>Check all ROS services and actions work. An example is shown below:</p></li>
+</ol>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>rosservice<span class="w"> </span>call<span class="w"> </span>/sim1/fc_get_pose<span class="w"> </span>sim1/base_link<span class="w"> </span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This tutorial can be adapted to non-Fanuc robot arms. However, problems may occur due to version difference of support and moveit configs. It is recommended to use this interface repository as a reference and build the new package from the beginning.</p>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../loop_demo.html" class="btn btn-neutral float-left" title="Loop Demo" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="amr.html" class="btn btn-neutral float-right" title="Autonomous Mobile Robots" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright CMU.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
