@@ -49,5 +49,5 @@ utilities.md
 
 tutorials/fanuc_ros1/fanuc_ros1.md
 tutorials/le_classmate/le_classmate.md
-tutorials/amr.md
+tutorials/amr/amr.md
 ```
