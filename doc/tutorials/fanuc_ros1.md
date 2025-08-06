@@ -32,12 +32,116 @@ We developed a set of services and actions to perform various industrial tasks u
 
 <hr>
 
-## Tutorial 1 - Using scripts to test actions and services 
+## FC Interface Class
 
+Initializes the MoveIt! MoveGroup interface and sets up all relevant ROS interfaces including action servers, service servers, and topic subscribers for controlling a robotic manipulator.
+
+Interface Name = move_group \
+Group Name = manipulator \
+Default Planning Pipeline = pilz_industrial_motion_planner
+
+> Note: All below ROS elements will be prefixed with the chosen namespace. (Ex: /sim1/fc_get_pose)
+
+### ROS Services
+
+- getPose - <i>'/fc_get_pose'</i>
+- setPose - <i>'/fc_set_pose'</i>
+- setJoints - <i>'/fc_set_joints'</i> (Uses BiTRRT)
+- executeTrajectory - <i>'/fc_execute_trajectory'</i>
+- stopTrajectory - <i>'/fc_stop_trajectory' </i>
+- executeCartesianTrajectory - <i>'/fc_execute_cartesian_trajectory'</i>
+- executeCartesianTrajectoryAsync - <i>'/fc_execute_cartesian_trajectory_async'</i>
+
+### ROS Actions
+
+- GoToPose - <i>'/fc_go_to_pose'</i>
+- GoToPose (Async) - <i>'/fc_go_to_pose_async'</i>
+- GoToJoints - <i>'/fc_go_to_joints'</i> (Uses BiTRRT)
+- ExecuteCartesianTrajectory - <i>'/fc_execute_cartesian_trajectory_action'</i>
+
+### ROS Topic Subscribers
+
+- CheckMoving - <i>'/check_moving'</i>
+- TrajectoryStatus - <i>'/execute_trajectory/status'</i>
+- JointStates - <i>'/joint_states'</i>
+
+### ROS Topic Publishers
+
+- End Effector Pose - <i>'/tool0_pose'</i>
+
+> Note: All methods called by these elements are detailed in the Doxygen formatting style.
+
+## Dependencies
+
+- fc_launch
+- fc_msgs
+- fanuc_lrmate200id_support
+- fanuc_lrmate200id7l_moveit_config
+- fanuc
+
+## Fanuc IO Interface
+
+This package also enables Fanuc I/O control using [comet_rpc](https://github.com/gavanderhoorn/comet_rpc). Using the io.launch file, a Fanuc_IO ROS node is launched with the following functionality -
+
+### ROS Services
+
+- setIOValue - <i>/set_io_value</i>
+- readIOValue - <i>/read_io_value</i>
+
+Note: These services use the SetIO.srv and ReadIO.srv messages from fc_msgs. Please use rosservice info to get all input details.
+
+### ROS Publishers
+
+- <i>/io_states_DOUT</i> - Publishes all Digital Out I/O states
+- <i>/io_states_DIN</i> - Publishes all Digital In I/O states
+- <i>/io_states_AOUT</i> - Publishes all Analog Out I/O states
+- <i>/io_states_AIN</i> - Publishes all Analog In I/O states
+
+
+## Tutorial 1 - Testing functionalities and using scripts to test actions and services
+
+### Testing Functionalities
+1. Use the fanuc tutorials to ensure that connection with the robot is established and the required drivers are running. 
+2. Ensure the moveit_config works standalone, before testing fc_launch. Use the following commands: 
+
+```shell
+roslaunch fanuc_lrmate200id7l_moveit_config moveit_planning_execution.launch sim:=true 
+roslaunch fanuc_lrmate200id7l_moveit_config moveit_planning_execution.launch sim:=false robot_ip:=<robot_ip>
+```
+3. Check fc_tasks runs in simulation by keeping sim:=true with no namespace. 
+
+```shell
+roslaunch fc_launch moveit.launch sim:=true namespace:=''
+```
+4. Test with a namespace.
+
+```shell
+roslaunch fc_launch moveit.launch sim:=true namespace:='sim1'
+```
+
+
+5. Test on a real robot. 
+
+```{warning}
+* Ensure the robot is in a safe state and the environment is clear of obstacles before executing commands on a real robot.
+* Keep e-stop button ready to stop the robot in case of any unexpected behavior.
+```
+
+```shell
+roslaunch fc_launch moveit.launch sim:=false namespace:='real'
+```
+6. Check 'plan and execute' works in RViz by setting a 'random valid' goal. 
+7. Check all ROS services and actions work. An example is shown below:
+
+```shell
+rosservice call /sim1/fc_get_pose sim1/base_link 
+```
+
+```{note}
+This tutorial can be adapted to non-Fanuc robot arms. However, problems may occur due to version difference of support and moveit configs. It is recommended to use this interface repository as a reference and build the new package from the beginning. 
+```
 This repository comes with example scripts to test actions and services in 'fc_tasks/scripts'. These are outlined below :
 
-
-**TODO: Add sim GIF images to the tests below to show expected output.**
 
 ### SetPose Service Test
 The setPose_test.py script contains an example pose to test the /fc_set_pose service. Modify this as required to test. It's a good idea to execute the same pose multiple times to ensure that all frames are calibrated correctly. 
@@ -93,44 +197,5 @@ Most common differences are found in 'move_group.launch', 'moveit_planning_execu
 
 ### Testing changes
 
-1. Use the fanuc tutorials to ensure that connection with the robot is established and the required drivers are running. 
-2. Ensure the moveit_config works standalone, before testing fc_launch. Use the following commands: 
+Use the testing steps described in Tutorial1 to test all interface functionalities.
 
-```shell
-roslaunch fanuc_lrmate200id7l_moveit_config moveit_planning_execution.launch sim:=true 
-roslaunch fanuc_lrmate200id7l_moveit_config moveit_planning_execution.launch sim:=false robot_ip:=<robot_ip>
-```
-3. Check fc_tasks runs in simulation by keeping sim:=true with no namespace. 
-
-```shell
-roslaunch fc_launch moveit.launch sim:=true namespace:=''
-```
-4. Test with a namespace.
-
-```shell
-roslaunch fc_launch moveit.launch sim:=true namespace:='sim1'
-```
-
-**TODO: Add an image or GIF**
-
-
-5. Test on a real robot. 
-
-```{warning}
-* Ensure the robot is in a safe state and the environment is clear of obstacles before executing commands on a real robot.
-* Keep e-stop button ready to stop the robot in case of any unexpected behavior.
-```
-
-```shell
-roslaunch fc_launch moveit.launch sim:=false namespace:='real'
-```
-6. Check 'plan and execute' works in RViz by setting a 'random valid' goal. 
-7. Check all ROS services and actions work. An example is shown below:
-
-```shell
-rosservice call /sim1/fc_get_pose sim1/base_link 
-```
-
-```{note}
-This tutorial can be adapted to non-Fanuc robot arms. However, problems may occur due to version difference of support and moveit configs. It is recommended to use this interface repository as a reference and build the new package from the beginning. 
-```
