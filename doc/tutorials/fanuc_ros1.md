@@ -32,6 +32,13 @@ We developed a set of services and actions to perform various industrial tasks u
 
 <hr>
 
+## Software Architecture
+
+The fanuc_ros1 package is an interface layer that enables planning and execution via MoveIt, allows for peripheral control and launches the RViz GUI. In the standard ROS-I architecture, it would fit as shown below:
+
+![SoftwareArchitecture](../files/layers.jpg)
+
+
 ## FC Interface Class
 
 Initializes the MoveIt! MoveGroup interface and sets up all relevant ROS interfaces including action servers, service servers, and topic subscribers for controlling a robotic manipulator.

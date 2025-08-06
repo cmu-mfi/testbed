@@ -7,13 +7,20 @@ The network diagram for the setup at MFI is shown below:
 
 The LE Classmate is capable of producing additively manufactured parts. A video showing the classmate using this ROS pacakage to write out the letter 'MFI' is shown below:
 
+TODO: Add video
+
 # le_classmate_ros interface
 
 ## ROS Interface for Laser and Arc Welding on Lincoln Electric Classmate Cells
 
 This package provides a ROS-compatible control layer for a Fanuc-driven Lincoln Electric Classmate welding cell. It enables service-based control of welding operations via `comet_rpc`, conversion of CAD geometries into robot trajectories, and execution of coordinated laser or arc weld paths.
 
----
+## Software Architecture
+
+The le_classmate_ros package is an application software to handle peripheral control and process complex inputs. In the standard ROS-I architecture, it will be the top abstracted layer as shown. 
+
+![SoftwareArchitecture](../files/layers.jpg)
+
 
 ## Features
 
