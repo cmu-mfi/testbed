@@ -7,7 +7,7 @@ The network diagram for the setup at MFI is shown below:
 
 The LE Classmate is capable of producing additively manufactured parts. A video showing the classmate using this ROS pacakage to write out the letter 'MFI' is shown below:
 
-TODO: Add video
+![[DXF Demo](https://img.youtube.com/vi/Izd-oDhlwkU/0.jpg)](https://www.youtube.com/watch?v=Izd-oDhlwkU)
 
 # le_classmate_ros interface
 
