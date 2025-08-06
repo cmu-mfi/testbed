@@ -1,78 +1,10 @@
-# Lincoln Electric Classmate Laser
-
-The Lincoln Electric Classmate Laser is a compact, all-in-one laser welding cell designed specifically for educational environments to train students in advanced laser welding technologies. It features integrated laser and robotic technology on a mobile cart, along with an arc welding torch.
-
-The network diagram for the setup at MFI is shown below:
-![ClassmateNetworkDiagram](../files/LE Classmate.jpg)
-
-The LE Classmate is capable of producing additively manufactured parts. A video showing the classmate using this ROS pacakage to write out the letter 'MFI' is shown below:
-
-![[DXF Demo](https://img.youtube.com/vi/Izd-oDhlwkU/0.jpg)](https://www.youtube.com/watch?v=Izd-oDhlwkU)
-
-# le_classmate_ros interface
-
-## ROS Interface for Laser and Arc Welding on Lincoln Electric Classmate Cells
-
-This package provides a ROS-compatible control layer for a Fanuc-driven Lincoln Electric Classmate welding cell. It enables service-based control of welding operations via `comet_rpc`, conversion of CAD geometries into robot trajectories, and execution of coordinated laser or arc weld paths.
-
-## Software Architecture
-
-The le_classmate_ros package is an application software to handle peripheral control and process complex inputs. In the standard ROS-I architecture, it will be the top abstracted layer as shown. 
-
-![SoftwareArchitecture](../files/layers.jpg)
-
-
-## Features
-
-- ROS service interface for laser and arc welding control
-- DXF-based trajectory generation for weld paths
-- Integration with `comet_rpc` for direct I/O-level control of Fanuc systems
-- Custom weld macros support via LS files
-- Launch file and service definitions for easy orchestration
-- Standalone API for non-ROS workflows via the `Welder` class
-
----
-
-## Services
-
-Provided by `laser_run.py` node:
-
-| Service Name        | Type            | Description                |
-| ------------------- | --------------- | -------------------------- |
-| `/weld_start`       | `Weld.srv`      | Start arc welding process  |
-| `/weld_end`         | `Weld.srv`      | End arc welding process    |
-| `/laser_arm`        | `LaserArm.srv`  | Prepare laser for emission |
-| `/laser_disarm`     | `LaserArm.srv`  | Disable laser safely       |
-| `/laser_emit_start` | `LaserEmit.srv` | Begin laser emission       |
-| `/laser_emit_stop`  | `LaserEmit.srv` | Stop laser emission        |
-
-All services return a `bool State` field indicating success.
-
----
-
-## Welder Class
-
-The welder class has the following methods that can be called using an instance directly, if you prefer to not use ROS Services
-
-| Function Name      | Purpose                  | Description                                                                                                |
-| ------------------ | ------------------------ | ---------------------------------------------------------------------------------------------------------- |
-| `laser_ready_arm`  | Prepare and arm laser    | Sets laser power, performs safety/alarm checks, locks door, enables controls, waits for ready.             |
-| `laser_start_emit` | Start laser emission     | Turns on laser emission (laser output).                                                                    |
-| `laser_stop_emit`  | Stop laser emission      | Turns off laser emission, pulses stop controls and resets sync inputs.                                     |
-| `laser_disarm`     | Disarm laser safely      | Disables external enable, system on, laser emission, pulses air knife and fume extraction before shutdown. |
-| `laser_error`      | Handle laser error       | Prints error message and disarms laser safely (prevents recursive calls).                                  |
-| `weld_start`       | Start arc welding        | Checks for gas or wire faults, then starts weld and gas output if all clear.                               |
-| `weld_end`         | End arc welding          | Sends command to end weld process.                                                                         |
-| `gas_start`        | Start shielding gas flow | Checks for gas faults and enables gas flow output.                                                         |
-| `gas_end`          | Stop shielding gas flow  | Stops gas flow output after a delay.                                                                       |
-
 ## Tutorial 1 - DXF Trajectory Execution with Laser & Welding Integration
 
 The dxf_script.py package uses is a complete script to perform laser welding using a dxf. The .dxf file must be contained within the workspace bounds (600mm x 800mm). The script also has functionality to scale and center the dxf to parse (x,y) coordinates for robot poses. The script is written using only ROS services to control peripherals. The code is explained below:
 
 This tutorial walks through loading a DXF file, parsing it into robot poses, and executing a Cartesian welding trajectory using ROS1. Laser and weld control are also integrated via services.
 
----
+
 
 ### 1. Prerequisites
 
@@ -91,7 +23,7 @@ Ensure the following ROS services are available and active:
 - `/laser_ready_arm`, `/laser_disarm`
 - `/set_io_value`
 
----
+
 
 ### 2. Load and Parse the DXF File
 
@@ -121,7 +53,6 @@ def parse_dxf_to_poses(dxf_file) -> list:
 
 This function reads a DXF file and extracts `LINE` entities, converting them into 3D ROS poses with a fixed height and orientation.
 
----
 
 ### 3. Center and Scale the Path
 
@@ -143,7 +74,6 @@ def transform_to_centre(center_x, center_y, poses, scale):
 
 This function recenters the poses around a fixed workspace origin and scales them to fit the robot's reach.
 
----
 
 ### 4. Monitor Tool Pose and Trigger IO
 
@@ -169,7 +99,6 @@ def monitor_pose_callback(msg, targets):
 
 The `monitor_pose_callback` is a subscriber callback that triggers welding and laser IO actions when the robot's pose reaches specified targets within tolerance.
 
----
 
 ### 5. Initialize ROS Node and Services
 
@@ -208,7 +137,6 @@ Laser_Disarm = rospy.ServiceProxy('/laser_disarm', LaserArm)
 
 This block initializes your ROS node and service clients needed to control the welding process.
 
----
 
 ### 6. Setup Monitoring, Execute Trajectory
 
@@ -233,7 +161,6 @@ rospy.Subscriber('/real/tool0_pose', PoseStamped, monitor_pose_callback, callbac
 
 This section selects key trajectory points to monitor and binds them to the callback for IO control.
 
----
 
 ### 7. Begin Motion Execution
 
@@ -261,8 +188,6 @@ _ = Laser_Disarm(True)
 
 Finally, the robot moves through the full trajectory, with laser/weld triggered as it hits waypoints. After execution, the system is shut down cleanly.
 
----
-
 ### Summary
 
 - Parse DXF into `PoseStamped` waypoints
@@ -272,15 +197,13 @@ Finally, the robot moves through the full trajectory, with laser/weld triggered 
 
 This pattern can be reused for painting, welding, inspection, and more.
 
----D
+<hr>
 
 ## Tutorial 2 - ROS Welding Routine Explained
 
 This Python script performs a simple two-pass laser welding operation using predefined poses and ROS service calls. Below is a breakdown of the key parts of the code.
 
----
-
-## 1. **Imports and Constants**
+### 1. Imports and Constants
 
 ```python
 import rospy
@@ -300,9 +223,8 @@ from le_classmate_ros.srv import LaserArm, LaserEmit, Weld, SetIO
 
 These import necessary libraries for ROS control, DXF processing, math, and I/O. The services and message types are specific to a laser welding robot setup.
 
----
 
-## 2. **Fixed Parameters and Pose Definitions**
+### 2. Fixed Parameters and Pose Definitions
 
 ```python
 FIXED_Z_1 = 0.403
@@ -321,9 +243,8 @@ PointA_1.pose.orientation.x, PointA_1.pose.orientation.y, PointA_1.pose.orientat
 
 This is repeated similarly for `PointB_1`, `PointA_2`, `PointB_2`.
 
----
 
-## 3. **Main Execution Block**
+### 3. Main Execution Block
 
 ```python
 if __name__ == '__main__':
@@ -332,7 +253,7 @@ if __name__ == '__main__':
 
 We initialize the ROS node and wait for all required services to be available.
 
-### 4. **Service Clients Setup**
+### 4. Service Clients Setup
 
 ```python
 set_pose = rospy.ServiceProxy('/real/fc_set_pose', SetPose)
@@ -342,7 +263,7 @@ execTraj = rospy.ServiceProxy('/real/fc_execute_cartesian_trajectory_async', Exe
 
 These are the clients used to command robot motion, welding, and laser behavior.
 
-### 5. **Welder Initialization**
+### 5. Welder Initialization
 
 ```python
 server = '192.168.2.151'
@@ -353,11 +274,10 @@ _ = Set_IO('Digital_OUT', 47, 1) # Enable external control
 
 We initialize the Fanuc welder and set necessary flags to enable external control.
 
----
 
-## 6. **Welding Routine**
+### 6. Welding Routine
 
-### First Pass:
+#### First Pass:
 
 ```python
 _ = set_pose(PointA_1.pose, '/base_link', 0.01, 0.1, 'PTP')
@@ -372,7 +292,7 @@ _ = LaserOff(True)
 
 We move to start position, arm the laser, begin welding, move to the end point, and stop.
 
-### Second Pass:
+#### Second Pass:
 
 ```python
 _ = set_pose(PointA_2.pose, '/base_link', 0.01, 0.1, 'PTP')
@@ -387,8 +307,6 @@ _ = Laser_Disarm(True)
 
 Same as the first pass, but slightly higher in Z (a "second layer" weld).
 
----
-
 ### 7. Summary
 
 This code executes a controlled laser weld routine along two horizontal lines using ROS services. Each phase—arming, emitting, welding, and disarming—is explicitly timed and ordered.
@@ -398,6 +316,8 @@ To extend this:
 - Add more poses to trace complex geometries.
 - Convert DXF lines to pose sequences.
 - Add feedback/error handling for real deployments.
+
+<hr>
 
 ## Tutorial 3 - Using the `Welder` Class Without ROS
 
@@ -445,4 +365,4 @@ if __name__ == '__main__':
 
 The class handles all relevant I/O mappings and safety interlocks. An example is shown in scripts/welder_class_example.py
 
----
+
