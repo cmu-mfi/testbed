@@ -8,7 +8,7 @@ The network diagram for the setup at MFI is shown below:
 
 ![ClassmateNetworkDiagram](../../files/LE_Classmate.jpg)
 
-The LE Classmate is capable of producing additively manufactured parts. A video showing the classmate using this ROS pacakage to write out the letter 'MFI' is shown below.
+The LE Classmate is capable of producing additively manufactured parts. A video showing the classmate using this ROS package to write out the letter 'MFI' is shown below.
 
 <iframe width="704" height="396" src="https://www.youtube.com/embed/Izd-oDhlwkU" title="DXF Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
@@ -16,18 +16,15 @@ The LE Classmate is capable of producing additively manufactured parts. A video 
 
 ## Software Architecture
 
-This package provides a ROS-compatible control layer for a Fanuc-driven Lincoln Electric Classmate welding cell. It enables service-based control of welding operations via `comet_rpc`, conversion of CAD geometries into robot trajectories, and execution of coordinated laser or arc weld paths.
+The le_classmate_ros package is an application software to handle peripheral control and process complex inputs. In the standard ROS-I architecture, it will be the top abstracted layer as shown.
 
-The le_classmate_ros package is an application software to handle peripheral control and process complex inputs. In the standard ROS-I architecture, it will be the top abstracted layer as shown. 
-
-![SoftwareArchitecture](../../files/layers.jpg)
-
+![SoftwareArchitecture](../../files/software_layers.jpg)
 
 ## le_classmate_ros Package
 
-TODO TODO
+This package provides a ROS-compatible control layer for a Fanuc-driven Lincoln Electric Classmate welding cell. It enables service-based control of welding operations via `comet_rpc`, conversion of CAD geometries into robot trajectories, and execution of coordinated laser or arc weld paths.
 
-**features**
+**Features**
 
 - ROS service interface for laser and arc welding control
 - DXF-based trajectory generation for weld paths
@@ -57,7 +54,7 @@ All services return a `bool State` field indicating success.
 
 The welder class has the following methods that can be called using an instance directly, if you prefer to not use ROS Services
 
-| Method Name      | Purpose                  | Description                                                                                                |
+| Method Name        | Purpose                  | Description                                                                                                |
 | ------------------ | ------------------------ | ---------------------------------------------------------------------------------------------------------- |
 | `laser_ready_arm`  | Prepare and arm laser    | Sets laser power, performs safety/alarm checks, locks door, enables controls, waits for ready.             |
 | `laser_start_emit` | Start laser emission     | Turns on laser emission (laser output).                                                                    |
@@ -68,7 +65,6 @@ The welder class has the following methods that can be called using an instance 
 | `weld_end`         | End arc welding          | Sends command to end weld process.                                                                         |
 | `gas_start`        | Start shielding gas flow | Checks for gas faults and enables gas flow output.                                                         |
 | `gas_end`          | Stop shielding gas flow  | Stops gas flow output after a delay.                                                                       |
-
 
 ## Tutorials
 

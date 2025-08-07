@@ -105,7 +105,6 @@ This tutorial assumes that the new package is built in a docker container with t
 5. Inside the moveit_config package, add the namespaced controllers to the 'config/controllers.yaml' file. Refer 'fanuc_lrmate200id7l_moveit_config'.
 6. Go through the moveit_config launch and config files to see if any file are missing/have different structures due to software updates.
 
-<!-- **TODO: Add a PR to the fanuc_ros1 repository by doing the above changes for a new robot arm.** -->
 
 ```{note}
 Most common differences are found in 'move_group.launch', 'moveit_planning_execution.launch' and 'trajectory_execution.launch.xml'. Check all namespaces match this repository

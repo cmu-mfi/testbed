@@ -1,4 +1,5 @@
 # FANUC ROS1 Interface
+
 <a href="https://github.com/cmu-mfi/fanuc_ros1" class="inline-button"><i class="fab fa-github"></i>fanuc_ros1</a>
 
 The fanuc_ros1 repository is a ROS1 interface for FANUC robot arms, specifically designed to work with the R-30iB+ controller. It provides a framework for motion planning and execution using MoveIt, along with various skills for industrial tasks.
@@ -11,7 +12,7 @@ The fanuc_ros1 package is an interface layer that enables planning and execution
 _Source: [http://wiki.ros.org/Industrial](http://wiki.ros.org/Industrial)_
 
 - **ROS-I Controller Layer** is setup at the robot controller (R-30iB+). [Details](https://wiki.ros.org/fanuc/Tutorials/hydro/Installation)
-<br></br>
+  <br></br>
 
 - **ROS-I Interface Layer** \
   [fanuc_lrmate200id_support](https://github.com/cmu-mfi/fanuc_ros1/tree/main/fanuc_lrmate200id_support) \
@@ -42,49 +43,53 @@ _Source: [http://wiki.ros.org/Industrial](http://wiki.ros.org/Industrial)_
 `fc_tasks` is the core package which either uses other listed packages or packages, like fc_launch, use fc_tasks to launch the interface.
 ```
 
-<msg/srv/action type> - *<name of topic/service/action>*
-
-**TODO - consistent formatting for all elements below**
-
 ### ROS Services
 
-- getPose - <i>'/fc_get_pose'</i>
-- setPose - <i>'/fc_set_pose'</i>
-- setJoints - <i>'/fc_set_joints'</i> (Uses BiTRRT)
-- executeTrajectory - <i>'/fc_execute_trajectory'</i>
-- stopTrajectory - <i>'/fc_stop_trajectory' </i>
-- executeCartesianTrajectory - <i>'/fc_execute_cartesian_trajectory'</i>
-- executeCartesianTrajectoryAsync - <i>'/fc_execute_cartesian_trajectory_async'</i>
-- setIOValue - <i>/set_io_value</i>
-- readIOValue - <i>/read_io_value</i>
+| Service Name                             | Type                             | Description                                       |
+| ---------------------------------------- | -------------------------------- | ------------------------------------------------- |
+| `/fc_get_pose`                           | `GetPose.srv`                    | Retrieve the current pose of the robot            |
+| `/fc_set_pose`                           | `SetPose.srv`                    | Set a desired pose for the robot                  |
+| `/fc_set_joints`                         | `SetJoints.srv`                  | Set robot joint values (uses BiTRRT for planning) |
+| `/fc_execute_trajectory`                 | `ExecuteKnownTrajectory.srv`     | Execute a predefined trajectory                   |
+| `/fc_stop_trajectory`                    | `StopTrajectory.srv`             | Stop the current trajectory execution             |
+| `/fc_execute_cartesian_trajectory`       | `ExecuteCartesianTrajectory.srv` | Execute a cartesian space trajectory              |
+| `/fc_execute_cartesian_trajectory_async` | `ExecuteCartesianTrajectory.srv` | Execute a cartesian trajectory asynchronously     |
+| `/set_io_value`                          | `SetIO.srv`                      | Set or write a value to an I/O port               |
+| `/read_io_value`                         | `ReadIO.srv`                     | Read or get the value from an I/O port            |
 
 ### ROS Actions
 
-- GoToPose - <i>'/fc_go_to_pose'</i>
-- GoToPose (Async) - <i>'/fc_go_to_pose_async'</i>
-- GoToJoints - <i>'/fc_go_to_joints'</i> (Uses BiTRRT)
-- ExecuteCartesianTrajectory - <i>'/fc_execute_cartesian_trajectory_action'</i>
+| Action Name                               | Type                                | Description                                      |
+| ----------------------------------------- | ----------------------------------- | ------------------------------------------------ |
+| `/fc_go_to_pose`                          | `GoToPose.action`                   | Move the robot to a specified pose               |
+| `/fc_go_to_pose_async`                    | `GoToPose.action`                   | Move the robot to a pose asynchronously          |
+| `/fc_go_to_joints`                        | `GoToJoints.action`                 | Move robot joints to target values (uses BiTRRT) |
+| `/fc_execute_cartesian_trajectory_action` | `ExecuteCartesianTrajectory.action` | Execute a cartesian trajectory as an action      |
 
 ### ROS Topic Subscribers
 
-- CheckMoving - <i>'/check_moving'</i>
-- TrajectoryStatus - <i>'/execute_trajectory/status'</i>
-- JointStates - <i>'/joint_states'</i>
+| Topic                        | Topic Name/Type | Description                                                      |
+| ---------------------------- | --------------- | ---------------------------------------------------------------- |
+| `/check_moving`              | Status Topic    | Indicates whether the robot or manipulator is currently moving   |
+| `/execute_trajectory/status` | Status Topic    | Publishes the current status of the ongoing trajectory execution |
+| `/joint_states`              | Sensor Topic    | Publishes the current joint positions, velocities, and efforts   |
 
 ### ROS Topic Publishers
 
-- End Effector Pose - <i>'/tool0_pose'</i>
-- <i>/io_states_DOUT</i> - Publishes all Digital Out I/O states
-- <i>/io_states_DIN</i> - Publishes all Digital In I/O states
-- <i>/io_states_AOUT</i> - Publishes all Analog Out I/O states
-- <i>/io_states_AIN</i> - Publishes all Analog In I/O states
+| Topic Name        | Type           | Description                                    |
+| ----------------- | -------------- | ---------------------------------------------- |
+| `/tool0_pose`     | Pose Publisher | Publishes the current end effector (tool) pose |
+| `/io_states_DOUT` | Digital Out    | Publishes all Digital Output I/O states        |
+| `/io_states_DIN`  | Digital In     | Publishes all Digital Input I/O states         |
+| `/io_states_AOUT` | Analog Out     | Publishes all Analog Output I/O states         |
+| `/io_states_AIN`  | Analog In      | Publishes all Analog Input I/O states          |
 
 ```{note}
 Note: All methods called by these elements are detailed in the Doxygen formatting style.
 ```
 
 ```{note}
-This package also enables Fanuc I/O control using [comet_rpc](https://github.com/gavanderhoorn/comet_rpc). Using the io.launch file, a Fanuc_IO ROS node is launched with the following functionality 
+This package also enables Fanuc I/O control using [comet_rpc](https://github.com/gavanderhoorn/comet_rpc). Using the io.launch file, a Fanuc_IO ROS node is launched with the following functionality
 ```
 
 ## Tutorials
