@@ -4,6 +4,8 @@ The [dxf_script.py](https://github.com/cmu-mfi/le_classmate_ros/blob/main/script
 
 This tutorial walks through loading a DXF file, parsing it into robot poses, and executing a Cartesian welding trajectory using ROS1. Laser and weld control are also integrated via services.
 
+![DXF output](../../files/mfiprint.jpg)
+
 ### 1. Prerequisites
 
 Install required Python packages:
@@ -22,6 +24,8 @@ Ensure the following ROS services are available and active:
 - `/set_io_value`
 
 ### 2. Load and Parse the DXF File
+
+![DXF input](../../files/dxf_input.png)
 
 ```python
 import ezdxf
@@ -196,7 +200,9 @@ This pattern can be reused for painting, welding, inspection, and more.
 
 This [Python script](https://github.com/cmu-mfi/le_classmate_ros/blob/main/scripts/layered_test.py) performs a simple two-pass laser welding operation using predefined poses and ROS service calls. Below is a breakdown of the key parts of the code.
 
-### 1. **Imports and Constants**
+![TwoLayerPrint](../../files/two_layerprint.png)
+
+### 1. Imports and Constants
 
 ```python
 import rospy
@@ -217,7 +223,7 @@ from std_srvs.srv import Trigger
 
 These import necessary libraries for ROS control, DXF processing, math, and I/O. The services and message types are specific to a laser welding robot setup.
 
-### 2. **Fixed Parameters and Pose Definitions**
+### 2. Fixed Parameters and Pose Definitions
 
 ```python
 FIXED_Z_1 = 0.403
@@ -236,7 +242,7 @@ PointA_1.pose.orientation.x, PointA_1.pose.orientation.y, PointA_1.pose.orientat
 
 This is repeated similarly for `PointB_1`, `PointA_2`, `PointB_2`.
 
-### 3. **Main Execution Block**
+### 3. Main Execution Block
 
 ```python
 if __name__ == '__main__':
@@ -245,7 +251,7 @@ if __name__ == '__main__':
 
 We initialize the ROS node and wait for all required services to be available.
 
-### 4. **Service Clients Setup**
+### 4. Service Clients Setup
 
 ```python
 set_pose = rospy.ServiceProxy('/real/fc_set_pose', SetPose)
@@ -255,18 +261,16 @@ execTraj = rospy.ServiceProxy('/real/fc_execute_cartesian_trajectory_async', Exe
 
 These are the clients used to command robot motion, welding, and laser behavior.
 
-### 5. **Welder Initialization**
+### 5. Enabling welding
 
 ```python
-server = '192.168.2.151'
-welder = Welder(server=server)
 set_override(100) # Set override to 100
 Set_IO('Digital_OUT', 47, 1) # Enable external control
 ```
 
-We initialize the Fanuc welder and set necessary flags to enable external control.
+We set the necessary flags to enable external control and welding.
 
-### 6. **Welding Routine**
+### 6. Welding Routine
 
 #### First Pass:
 
