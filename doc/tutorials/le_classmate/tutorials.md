@@ -1,6 +1,6 @@
-## Tutorial 1 - # DXF Trajectory Execution with Laser & Welding Integration
+## Tutorial 1 - DXF Trajectory Execution with Laser & Welding Integration
 
-The ![dxf_script.py](https://github.com/cmu-mfi/le_classmate_ros/blob/main/scripts/dxf_script.py) is a complete script to perform laser welding using a dxf. The .dxf file must be contained within the workspace bounds (600mm x 800mm). The script also has functionality to scale and center the dxf to parse (x,y) coordinates for robot poses. The script is written using only ROS services to control peripherals. The code is explained below:
+The [dxf_script.py](https://github.com/cmu-mfi/le_classmate_ros/blob/main/scripts/dxf_script.py) is a complete script to perform laser welding using a dxf. The .dxf file must be contained within the workspace bounds (600mm x 800mm). The script also has functionality to scale and center the dxf to parse (x,y) coordinates for robot poses. The script is written using only ROS services to control peripherals. The code is explained below:
 
 This tutorial walks through loading a DXF file, parsing it into robot poses, and executing a Cartesian welding trajectory using ROS1. Laser and weld control are also integrated via services.
 
@@ -194,7 +194,7 @@ This pattern can be reused for painting, welding, inspection, and more.
 
 ## Tutorial 2 - ROS Welding Routine Explained
 
-This ![Python script](https://github.com/cmu-mfi/le_classmate_ros/blob/main/scripts/layered_test.py) performs a simple two-pass laser welding operation using predefined poses and ROS service calls. Below is a breakdown of the key parts of the code.
+This [Python script](https://github.com/cmu-mfi/le_classmate_ros/blob/main/scripts/layered_test.py) performs a simple two-pass laser welding operation using predefined poses and ROS service calls. Below is a breakdown of the key parts of the code.
 
 ### 1. **Imports and Constants**
 
@@ -312,7 +312,7 @@ To extend this:
 
 ## Tutorial 3 - Using the `Welder` Class Without ROS
 
-The `Welding.Welder` class can be used directly in standalone ![Python scripts](https://github.com/cmu-mfi/le_classmate_ros/blob/main/scripts/welder_class_example.py) to control welding I/O over RPC (![comet_rpc](https://github.com/gavanderhoorn/comet_rpc)):
+The `Welding.Welder` class can be used directly in standalone [Python scripts](https://github.com/cmu-mfi/le_classmate_ros/blob/main/scripts/welder_class_example.py) to control welding I/O over RPC ([comet_rpc](https://github.com/gavanderhoorn/comet_rpc)):
 
 ```python
 from fanuc_ros1.le_classmate_ros.src.Welding import Welder
