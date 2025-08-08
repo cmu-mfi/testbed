@@ -45,6 +45,7 @@ Provided by `laser_run.py` node:
 | `/laser_disarm`     | `LaserArm.srv`  | Disable laser safely       |
 | `/laser_emit_start` | `LaserEmit.srv` | Begin laser emission       |
 | `/laser_emit_stop`  | `LaserEmit.srv` | Stop laser emission        |
+| `/set_override`     | `Trigger.srv`   | Set override to 100        | 
 
 All services return a `bool State` field indicating success.
 
@@ -65,6 +66,7 @@ The welder class has the following methods that can be called using an instance 
 | `weld_end`         | End arc welding          | Sends command to end weld process.                                                                         |
 | `gas_start`        | Start shielding gas flow | Checks for gas faults and enables gas flow output.                                                         |
 | `gas_end`          | Stop shielding gas flow  | Stops gas flow output after a delay.                                                                       |
+| `set_override`     | Set override to 100      | Sets system variable OVERRIDE to 100 to enable welding and movement |
 
 ## Tutorials
 

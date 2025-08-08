@@ -1,10 +1,8 @@
-## Tutorial 1 - DXF Trajectory Execution with Laser & Welding Integration
+## Tutorial 1 - # DXF Trajectory Execution with Laser & Welding Integration
 
-The dxf_script.py package uses is a complete script to perform laser welding using a dxf. The .dxf file must be contained within the workspace bounds (600mm x 800mm). The script also has functionality to scale and center the dxf to parse (x,y) coordinates for robot poses. The script is written using only ROS services to control peripherals. The code is explained below:
+The ![dxf_script.py](https://github.com/cmu-mfi/le_classmate_ros/blob/main/scripts/dxf_script.py) is a complete script to perform laser welding using a dxf. The .dxf file must be contained within the workspace bounds (600mm x 800mm). The script also has functionality to scale and center the dxf to parse (x,y) coordinates for robot poses. The script is written using only ROS services to control peripherals. The code is explained below:
 
 This tutorial walks through loading a DXF file, parsing it into robot poses, and executing a Cartesian welding trajectory using ROS1. Laser and weld control are also integrated via services.
-
-
 
 ### 1. Prerequisites
 
@@ -22,8 +20,6 @@ Ensure the following ROS services are available and active:
 - `/laser_emit_start`, `/laser_emit_stop`
 - `/laser_ready_arm`, `/laser_disarm`
 - `/set_io_value`
-
-
 
 ### 2. Load and Parse the DXF File
 
@@ -53,7 +49,6 @@ def parse_dxf_to_poses(dxf_file) -> list:
 
 This function reads a DXF file and extracts `LINE` entities, converting them into 3D ROS poses with a fixed height and orientation.
 
-
 ### 3. Center and Scale the Path
 
 ```python
@@ -73,7 +68,6 @@ def transform_to_centre(center_x, center_y, poses, scale):
 ```
 
 This function recenters the poses around a fixed workspace origin and scales them to fit the robot's reach.
-
 
 ### 4. Monitor Tool Pose and Trigger IO
 
@@ -99,7 +93,6 @@ def monitor_pose_callback(msg, targets):
 
 The `monitor_pose_callback` is a subscriber callback that triggers welding and laser IO actions when the robot's pose reaches specified targets within tolerance.
 
-
 ### 5. Initialize ROS Node and Services
 
 ```python
@@ -122,6 +115,7 @@ rospy.wait_for_service('/laser_emit_stop')
 rospy.wait_for_service('/set_io_value')
 rospy.wait_for_service('/laser_ready_arm')
 rospy.wait_for_service('/laser_disarm')
+rospy.wait_for_service('/set_override')
 
 # Create service proxies
 set_pose = rospy.ServiceProxy('/real/fc_set_pose', SetPose)
@@ -133,10 +127,10 @@ LaserOff = rospy.ServiceProxy('/laser_emit_stop', LaserEmit)
 Set_IO = rospy.ServiceProxy('/set_io_value', SetIO)
 Laser_Arm = rospy.ServiceProxy('/laser_ready_arm', LaserArm)
 Laser_Disarm = rospy.ServiceProxy('/laser_disarm', LaserArm)
+set_override = rospy.ServiceProxy('/set_override', Trigger)
 ```
 
 This block initializes your ROS node and service clients needed to control the welding process.
-
 
 ### 6. Setup Monitoring, Execute Trajectory
 
@@ -161,29 +155,28 @@ rospy.Subscriber('/real/tool0_pose', PoseStamped, monitor_pose_callback, callbac
 
 This section selects key trajectory points to monitor and binds them to the callback for IO control.
 
-
 ### 7. Begin Motion Execution
 
 ```python
 # Move to starting pose
-_ = set_pose(poses[0].pose, '/base_link', 0.3, 0.1, 'PTP')
+set_pose(poses[0].pose, '/base_link', 0.3, 0.1, 'PTP')
 
 # Setup welding systems
-rpc.vmip_writeva('192.168.2.151', "*SYSTEM*", "$MCR.$GENOVERRIDE", value=100)
-_ = Set_IO('Digital_OUT', 47, 1)
-_ = Laser_Arm(True)
+set_override(100) # Ensure override is set to 100
+Set_IO('Digital_OUT', 47, 1)
+Laser_Arm(True)
 time.sleep(2)
-_ = LaserOn(True)
-_ = weldOn(True)
+LaserOn(True)
+weldOn(True)
 
 # Execute trajectory
-_ = execTraj([p.pose for p in poses], 0.01, 0.0, 0.01, 0.01, 0.0)
+execTraj([p.pose for p in poses], 0.01, 0.0, 0.01, 0.01, 0.0)
 
 # Shut down
-_ = weldOff(True)
-_ = set_pose(poses[-1].pose, '/base_link', 0.3, 0.1, 'PTP')
-_ = LaserOff(True)
-_ = Laser_Disarm(True)
+weldOff(True)
+set_pose(poses[-1].pose, '/base_link', 0.3, 0.1, 'PTP')
+LaserOff(True)
+Laser_Disarm(True)
 ```
 
 Finally, the robot moves through the full trajectory, with laser/weld triggered as it hits waypoints. After execution, the system is shut down cleanly.
@@ -201,9 +194,9 @@ This pattern can be reused for painting, welding, inspection, and more.
 
 ## Tutorial 2 - ROS Welding Routine Explained
 
-This Python script performs a simple two-pass laser welding operation using predefined poses and ROS service calls. Below is a breakdown of the key parts of the code.
+This ![Python script](https://github.com/cmu-mfi/le_classmate_ros/blob/main/scripts/layered_test.py) performs a simple two-pass laser welding operation using predefined poses and ROS service calls. Below is a breakdown of the key parts of the code.
 
-### 1. Imports and Constants
+### 1. **Imports and Constants**
 
 ```python
 import rospy
@@ -219,12 +212,12 @@ import comet_rpc as rpc
 import time
 from le_classmate_ros.Welding import Welder
 from le_classmate_ros.srv import LaserArm, LaserEmit, Weld, SetIO
+from std_srvs.srv import Trigger
 ```
 
 These import necessary libraries for ROS control, DXF processing, math, and I/O. The services and message types are specific to a laser welding robot setup.
 
-
-### 2. Fixed Parameters and Pose Definitions
+### 2. **Fixed Parameters and Pose Definitions**
 
 ```python
 FIXED_Z_1 = 0.403
@@ -243,8 +236,7 @@ PointA_1.pose.orientation.x, PointA_1.pose.orientation.y, PointA_1.pose.orientat
 
 This is repeated similarly for `PointB_1`, `PointA_2`, `PointB_2`.
 
-
-### 3. Main Execution Block
+### 3. **Main Execution Block**
 
 ```python
 if __name__ == '__main__':
@@ -253,7 +245,7 @@ if __name__ == '__main__':
 
 We initialize the ROS node and wait for all required services to be available.
 
-### 4. Service Clients Setup
+### 4. **Service Clients Setup**
 
 ```python
 set_pose = rospy.ServiceProxy('/real/fc_set_pose', SetPose)
@@ -263,31 +255,30 @@ execTraj = rospy.ServiceProxy('/real/fc_execute_cartesian_trajectory_async', Exe
 
 These are the clients used to command robot motion, welding, and laser behavior.
 
-### 5. Welder Initialization
+### 5. **Welder Initialization**
 
 ```python
 server = '192.168.2.151'
 welder = Welder(server=server)
-rpc.vmip_writeva(server, "*SYSTEM*", "$MCR.$GENOVERRIDE", value=100)
-_ = Set_IO('Digital_OUT', 47, 1) # Enable external control
+set_override(100) # Set override to 100
+Set_IO('Digital_OUT', 47, 1) # Enable external control
 ```
 
 We initialize the Fanuc welder and set necessary flags to enable external control.
 
-
-### 6. Welding Routine
+### 6. **Welding Routine**
 
 #### First Pass:
 
 ```python
-_ = set_pose(PointA_1.pose, '/base_link', 0.01, 0.1, 'PTP')
-_ = Laser_Arm(True)
+set_pose(PointA_1.pose, '/base_link', 0.01, 0.1, 'PTP')
+Laser_Arm(True)
 time.sleep(2)
-_ = LaserOn(True)
-_ = weldOn(True)
-_ = set_pose(PointB_1.pose, '/base_link', 0.0075, 0.1, 'PTP')
-_ = weldOff(True)
-_ = LaserOff(True)
+LaserOn(True)
+weldOn(True)
+set_pose(PointB_1.pose, '/base_link', 0.0075, 0.1, 'PTP')
+weldOff(True)
+LaserOff(True)
 ```
 
 We move to start position, arm the laser, begin welding, move to the end point, and stop.
@@ -295,14 +286,14 @@ We move to start position, arm the laser, begin welding, move to the end point, 
 #### Second Pass:
 
 ```python
-_ = set_pose(PointA_2.pose, '/base_link', 0.01, 0.1, 'PTP')
-_ = LaserOn(True)
-_ = weldOn(True)
-_ = set_pose(PointB_2.pose, '/base_link', 0.001, 0.1, 'PTP')
-_ = weldOff(True)
-_ = set_pose(PointB_2.pose, '/base_link', 0.3, 0.1, 'PTP')  # Move away
-_ = LaserOff(True)
-_ = Laser_Disarm(True)
+set_pose(PointA_2.pose, '/base_link', 0.01, 0.1, 'PTP')
+LaserOn(True)
+weldOn(True)
+set_pose(PointB_2.pose, '/base_link', 0.001, 0.1, 'PTP')
+weldOff(True)
+set_pose(PointB_2.pose, '/base_link', 0.3, 0.1, 'PTP')  # Move away
+LaserOff(True)
+Laser_Disarm(True)
 ```
 
 Same as the first pass, but slightly higher in Z (a "second layer" weld).
@@ -321,12 +312,32 @@ To extend this:
 
 ## Tutorial 3 - Using the `Welder` Class Without ROS
 
-The `Welding.Welder` class can be used directly in standalone Python scripts to control welding I/O over RPC:
+The `Welding.Welder` class can be used directly in standalone ![Python scripts](https://github.com/cmu-mfi/le_classmate_ros/blob/main/scripts/welder_class_example.py) to control welding I/O over RPC (![comet_rpc](https://github.com/gavanderhoorn/comet_rpc)):
 
 ```python
 from fanuc_ros1.le_classmate_ros.src.Welding import Welder
 import comet_rpc as rpc
 import time
+
+'''
+def vmip_writeva(
+    server: str, prog_name: str, var_name: str, value: t.Union[str, int, float]
+) -> VmIpWriteVaResponse:
+    """Write 'value' to the variable 'var_name' in program 'prog_name'.
+    Set `prog_name` to `"*SYSTEM*"` to write to system variables.
+    `value` will always be submitted as a string, even for (system) variables
+    which are of a different type. `COMET` apparently tries to parse the
+    string representation and converts it to the required type when possible.
+    The string representations are expected to be identical to those found in
+    `.VA` files.
+
+    OVERRIDE is a system variable which can be set to a value between 0 and 100. It needs to be set to 100 to allow welding and movement.
+    the prog_name is "*SYSTEM*" as override is a system variable
+
+    THIS MUST BE DONE BEFORE EVERY PROGRAM RUN TO ENSURE THAT OVERRIDE IS SET TO 100. NOT DOING SO WILL RESULT IN AN ERROR WHEN TRYING TO START WELDING.
+    The override value is set to 100 in the constructor of the Welder class, however, it still may need to be set again here.
+    Best practice is to always set it in every program.
+'''
 
 
 if __name__ == '__main__':
@@ -335,10 +346,10 @@ if __name__ == '__main__':
     server = '192.168.2.151'
     welder = Welder(server=server)
 
-    # Setting overwrite to 100
+    # Setting overwrite to 100 - refer to the docstring of vmip_writeva above for more information
     rpc.vmip_writeva(server, "*SYSTEM*", "$MCR.$GENOVERRIDE", value=100)
 
-    # Enabling external control
+    # Enabling external control - i/o value that control the external control must be set to 1
     rpc.iovalset(server, rpc.IoType.DigitalOut, index=47, value=1)
 
     # Arming the Laser
@@ -361,8 +372,7 @@ if __name__ == '__main__':
     # Disarming the Laser
     welder.laser_disarm()
 
+
 ```
 
 The class handles all relevant I/O mappings and safety interlocks. An example is shown in scripts/welder_class_example.py
-
-
