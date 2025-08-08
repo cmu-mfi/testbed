@@ -1,0 +1,215 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tutorial 1 : Qt Application &mdash; MFI Testbed 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=066d2f63" />
+      <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
+
+  
+    <link rel="shortcut icon" href="../../_static/white-logo.ico"/>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="prev" title="Autonomous Mobile Robots" href="amr.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            MFI Testbed
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../system_overview.html">System Overview</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Testbed Resources</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../resources/mes.html">Manufacturing Executive System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resources/robot_arms.html">Robot Arms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resources/amr.html">Autonomous Mobile Robots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resources/plc.html">Safety Light Curtains</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Demos</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../integrated_demo_2024.html">Integrated Demo 2024</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../loop_demo.html">Loop Demo</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../fanuc_ros1/fanuc_ros1.html">FANUC ROS1 Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../le_classmate/le_classmate.html">Lincoln Electric Classmate Laser</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="amr.html">Autonomous Mobile Robots</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="amr.html#hardware-setup">Hardware Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="amr.html#software-architecture">Software Architecture</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="amr.html#tutorials">Tutorials</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Tutorial 1 : Qt Application</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tutorial-2-ros-2-interfaces">Tutorial 2 : ROS 2 Interfaces</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#amr-mp-400-interface">AMR MP-400 Interface</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#waypoint-server">Waypoint Server</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#waypoint-client">Waypoint Client</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#tutorial-3-mapping">Tutorial 3: Mapping</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">MFI Testbed</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="amr.html">Autonomous Mobile Robots</a></li>
+      <li class="breadcrumb-item active">Tutorial 1 : Qt Application</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/cmu-mfi/testbed/blob/master/doc/tutorials/amr/tutorials.md" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="tutorial-1-qt-application">
+<h1>Tutorial 1 : Qt Application<a class="headerlink" href="#tutorial-1-qt-application" title="Link to this heading"></a></h1>
+<p>To launch the application from inside the robot, you run</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ros2</span> <span class="n">launch</span> <span class="n">launch_dir</span> <span class="n">launch</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>The Qt application should launch as well as the rest of the nodes and services needed for the application to work.</p>
+<p><strong>Saving a Marker Position</strong></p>
+<p>To save a marker position, make sure the back camera of the AMR is facing a marker and detecting it (the camera feed should show a number and coordinate axis on the marker). Once you are in a desired docking position, have the docking toggle set to ON and click “Save Marker Pose”. This should save the marker position to be used for docking later.</p>
+<p><strong>Appending A Waypoint Position for Docking</strong></p>
+<p>To have a position set up for docking, drive the AMR anywhere in front of a marker where the back camera can detect it, save the position, and name your waypoint to whatever you want. This should make a waypoint that can see a marker to dock to.</p>
+<p><strong>Docking the AMR to a Marker</strong></p>
+<p>If you have a waypoint set up in front of a marker as well as a docking position saved, you can hit “Go” to that marker with the docking toggle set to ON to have the robot go to your set waypoint and dock to the marker.</p>
+<p><em>Insert Videos Here of these three processes</em></p>
+</section>
+<section id="tutorial-2-ros-2-interfaces">
+<h1>Tutorial 2 : ROS 2 Interfaces<a class="headerlink" href="#tutorial-2-ros-2-interfaces" title="Link to this heading"></a></h1>
+<p>My project exposes many interfaces that I have made to anyone who wants to use them, including many topics and classes that can be used in future applications.</p>
+<section id="amr-mp-400-interface">
+<h2>AMR MP-400 Interface<a class="headerlink" href="#amr-mp-400-interface" title="Link to this heading"></a></h2>
+<p>This interface includes two custom server messages <code class="docutils literal notranslate"><span class="pre">SetFlag.srv</span></code> and <code class="docutils literal notranslate"><span class="pre">GroundTruth.srv</span></code>.</p>
+<p>More information on the definition and use of these two messages can be found on the <a class="reference external" href="https://github.com/cmu-mfi/amr_mp400_ws/tree/main/src/amr_mp400_interfaces">GitHub</a> here</p>
+</section>
+<section id="waypoint-server">
+<h2>Waypoint Server<a class="headerlink" href="#waypoint-server" title="Link to this heading"></a></h2>
+<p>The Waypoint server is an integral part of the control flow, as it takes in requests from the frontend Qt Application and sends it to the rest of the control stack.</p>
+<p>To use the server through the CLI, you can use the command</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ros2</span> <span class="n">service</span> <span class="n">call</span> <span class="o">/</span><span class="n">waypoint_maker</span> <span class="n">amr_mp400_interfaces</span><span class="o">/</span><span class="n">srv</span><span class="o">/</span><span class="n">SetFlag</span> <span class="o">&lt;</span><span class="n">flags</span> <span class="k">as</span> <span class="n">described</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">github</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>The waypoint server processes requests given to it and does the control flow for the whole system.</p>
+</section>
+<section id="waypoint-client">
+<h2>Waypoint Client<a class="headerlink" href="#waypoint-client" title="Link to this heading"></a></h2>
+<p>This waypoint Client is an example of how to send requests to the server. The script includes</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">send_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flag</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">docking</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">flag</span> <span class="o">=</span> <span class="n">flag</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">index</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">docking</span> <span class="o">=</span> <span class="n">docking</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">label</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">future</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">call_async</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">)</span>
+    <span class="n">rclpy</span><span class="o">.</span><span class="n">spin_until_future_complete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">future</span><span class="p">)</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">rclpy</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">)</span>
+
+    <span class="n">waypoint_client</span> <span class="o">=</span> <span class="n">WaypointClientAsync</span><span class="p">()</span>
+
+    <span class="n">response</span> <span class="o">=</span> <span class="n">waypoint_client</span><span class="o">.</span><span class="n">send_request</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span> <span class="nb">ord</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">]))</span>
+
+    <span class="n">waypoint_client</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+        <span class="s1">&#39;Success: </span><span class="si">%d</span><span class="s1"> </span><span class="se">\n</span><span class="s1">Return Message: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">success</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">msg</span><span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="n">waypoint_client</span><span class="o">.</span><span class="n">destroy_node</span><span class="p">()</span>
+    <span class="n">rclpy</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span>
+
+</pre></div>
+</div>
+<p>showing how to recieve requests from the command line, process them, and send them to the server to be processed</p>
+</section>
+</section>
+<section id="tutorial-3-mapping">
+<h1>Tutorial 3: Mapping<a class="headerlink" href="#tutorial-3-mapping" title="Link to this heading"></a></h1>
+<p>To map, first connect to the robot through a VNC client. The configuration for this client should include:</p>
+<p>Protocol: Remmina VNC Plugin (For Remmina Use)</p>
+<p>Server: 172.26.190.49</p>
+<p>Username: neobotix</p>
+<p>Password: neobotix</p>
+<p>Once you are connected to the robot, make sure to stop all processes that are already running on the robot and launch ROS on the robot throught the startROS shell file on the desktop. Once that is running, there are two options to start the mapping process, one being a fallback.</p>
+<p>The first way to launch the mapping process is through the shell commands on the desktop, just like the ros commands. Simply start both startMapping and rvizMapping and map the area needed. Once finished, start mapSave and once the terminal closes without any red errors you are free to close all terminals and use this new map. However, if the desktop scripts dont work, the backup is just as simple. On the robots desktop, there is a text file named “Map Saving” and inside are three lines of code that should be run in seperate terminals and treated the same as the launch scripts.</p>
+<p><em>Insert Video here of creating the map (Show a video of both ways)</em></p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="amr.html" class="btn btn-neutral float-left" title="Autonomous Mobile Robots" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright CMU.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

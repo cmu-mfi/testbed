@@ -1,0 +1,517 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tutorial 1 - DXF Trajectory Execution with Laser &amp; Welding Integration &mdash; MFI Testbed 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=066d2f63" />
+      <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
+
+  
+    <link rel="shortcut icon" href="../../_static/white-logo.ico"/>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Autonomous Mobile Robots" href="../amr/amr.html" />
+    <link rel="prev" title="Lincoln Electric Classmate Laser" href="le_classmate.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            MFI Testbed
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../system_overview.html">System Overview</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Testbed Resources</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../resources/mes.html">Manufacturing Executive System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resources/robot_arms.html">Robot Arms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resources/amr.html">Autonomous Mobile Robots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resources/plc.html">Safety Light Curtains</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Demos</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../integrated_demo_2024.html">Integrated Demo 2024</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../loop_demo.html">Loop Demo</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../fanuc_ros1/fanuc_ros1.html">FANUC ROS1 Interface</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="le_classmate.html">Lincoln Electric Classmate Laser</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="le_classmate.html#software-architecture">Software Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="le_classmate.html#le-classmate-ros-package">le_classmate_ros Package</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="le_classmate.html#tutorials">Tutorials</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Tutorial 1 - DXF Trajectory Execution with Laser &amp; Welding Integration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#prerequisites">1. Prerequisites</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#load-and-parse-the-dxf-file">2. Load and Parse the DXF File</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#center-and-scale-the-path">3. Center and Scale the Path</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#monitor-tool-pose-and-trigger-io">4. Monitor Tool Pose and Trigger IO</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#initialize-ros-node-and-services">5. Initialize ROS Node and Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#setup-monitoring-execute-trajectory">6. Setup Monitoring, Execute Trajectory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#begin-motion-execution">7. Begin Motion Execution</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#tutorial-2-ros-welding-routine-explained">Tutorial 2 - ROS Welding Routine Explained</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#imports-and-constants">1. Imports and Constants</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fixed-parameters-and-pose-definitions">2. Fixed Parameters and Pose Definitions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#main-execution-block">3. Main Execution Block</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#service-clients-setup">4. Service Clients Setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#enabling-welding">5. Enabling welding</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#welding-routine">6. Welding Routine</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id1">7. Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#tutorial-3-using-the-welder-class-without-ros">Tutorial 3 - Using the <code class="docutils literal notranslate"><span class="pre">Welder</span></code> Class Without ROS</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../amr/amr.html">Autonomous Mobile Robots</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">MFI Testbed</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="le_classmate.html">Lincoln Electric Classmate Laser</a></li>
+      <li class="breadcrumb-item active">Tutorial 1 - DXF Trajectory Execution with Laser &amp; Welding Integration</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/cmu-mfi/testbed/blob/master/doc/tutorials/le_classmate/tutorials.md" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="tutorial-1-dxf-trajectory-execution-with-laser-welding-integration">
+<h1>Tutorial 1 - DXF Trajectory Execution with Laser &amp; Welding Integration<a class="headerlink" href="#tutorial-1-dxf-trajectory-execution-with-laser-welding-integration" title="Link to this heading"></a></h1>
+<p>The <a class="reference external" href="https://github.com/cmu-mfi/le_classmate_ros/blob/main/scripts/dxf_script.py">dxf_script.py</a> is a complete script to perform laser welding using a dxf. The .dxf file must be contained within the workspace bounds (600mm x 800mm). The script also has functionality to scale and center the dxf to parse (x,y) coordinates for robot poses. The script is written using only ROS services to control peripherals. The code is explained below:</p>
+<p>This tutorial walks through loading a DXF file, parsing it into robot poses, and executing a Cartesian welding trajectory using ROS1. Laser and weld control are also integrated via services.</p>
+<p><img alt="DXF output" src="../../_images/mfiprint.jpg" /></p>
+<section id="prerequisites">
+<h2>1. Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading"></a></h2>
+<p>Install required Python packages:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">ezdxf</span> <span class="n">numpy</span>
+</pre></div>
+</div>
+<p>Ensure the following ROS services are available and active:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">/real/fc_set_pose</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/real/fc_execute_cartesian_trajectory_async</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/weld_start</span></code>, <code class="docutils literal notranslate"><span class="pre">/weld_end</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/laser_emit_start</span></code>, <code class="docutils literal notranslate"><span class="pre">/laser_emit_stop</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/laser_ready_arm</span></code>, <code class="docutils literal notranslate"><span class="pre">/laser_disarm</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/set_io_value</span></code></p></li>
+</ul>
+</section>
+<section id="load-and-parse-the-dxf-file">
+<h2>2. Load and Parse the DXF File<a class="headerlink" href="#load-and-parse-the-dxf-file" title="Link to this heading"></a></h2>
+<p><img alt="DXF input" src="../../_images/dxf_input.png" /></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">ezdxf</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">geometry_msgs.msg</span><span class="w"> </span><span class="kn">import</span> <span class="n">PoseStamped</span>
+
+<span class="n">DXF_FILE_PATH</span> <span class="o">=</span> <span class="s2">&quot;/root/ros1_ws/src/le_classmate_ros/data/MFI8.dxf&quot;</span>
+<span class="n">FIXED_Z</span> <span class="o">=</span> <span class="mf">0.405</span>
+<span class="n">FIXED_QUAT</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.707</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.707</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">parse_dxf_to_poses</span><span class="p">(</span><span class="n">dxf_file</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+    <span class="n">doc</span> <span class="o">=</span> <span class="n">ezdxf</span><span class="o">.</span><span class="n">readfile</span><span class="p">(</span><span class="n">dxf_file</span><span class="p">)</span>
+    <span class="n">msp</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">modelspace</span><span class="p">()</span>
+    <span class="n">poses</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">msp</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;LINE&quot;</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">pt</span> <span class="ow">in</span> <span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">dxf</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">line</span><span class="o">.</span><span class="n">dxf</span><span class="o">.</span><span class="n">end</span><span class="p">]:</span>
+            <span class="n">pose</span> <span class="o">=</span> <span class="n">PoseStamped</span><span class="p">()</span>
+            <span class="n">pose</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">pt</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">pose</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">pt</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">pose</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="n">FIXED_Z</span>
+            <span class="n">pose</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">orientation</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">pose</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">orientation</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">pose</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">orientation</span><span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="n">pose</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">orientation</span><span class="o">.</span><span class="n">w</span> <span class="o">=</span> <span class="n">FIXED_QUAT</span>
+            <span class="n">poses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pose</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">poses</span>
+</pre></div>
+</div>
+<p>This function reads a DXF file and extracts <code class="docutils literal notranslate"><span class="pre">LINE</span></code> entities, converting them into 3D ROS poses with a fixed height and orientation.</p>
+</section>
+<section id="center-and-scale-the-path">
+<h2>3. Center and Scale the Path<a class="headerlink" href="#center-and-scale-the-path" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">transform_to_centre</span><span class="p">(</span><span class="n">center_x</span><span class="p">,</span> <span class="n">center_y</span><span class="p">,</span> <span class="n">poses</span><span class="p">,</span> <span class="n">scale</span><span class="p">):</span>
+    <span class="n">delta_x</span> <span class="o">=</span> <span class="n">center_x</span> <span class="o">-</span> <span class="mf">0.53</span>
+    <span class="n">delta_y</span> <span class="o">=</span> <span class="n">center_y</span> <span class="o">-</span> <span class="mf">0.01</span>
+    <span class="n">transform_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">delta_x</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">delta_y</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+
+    <span class="k">for</span> <span class="n">pose</span> <span class="ow">in</span> <span class="n">poses</span><span class="p">:</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="p">[</span><span class="n">pose</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">pose</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">pose</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">p_new</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">transform_matrix</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+        <span class="n">pose</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">p_new</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">scale</span>
+        <span class="n">pose</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">p_new</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">scale</span>
+    <span class="k">return</span> <span class="n">poses</span>
+</pre></div>
+</div>
+<p>This function recenters the poses around a fixed workspace origin and scales them to fit the robot’s reach.</p>
+</section>
+<section id="monitor-tool-pose-and-trigger-io">
+<h2>4. Monitor Tool Pose and Trigger IO<a class="headerlink" href="#monitor-tool-pose-and-trigger-io" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">calculate_pose_error</span><span class="p">(</span><span class="n">pose1</span><span class="p">,</span> <span class="n">pose2</span><span class="p">):</span>
+    <span class="n">dx</span> <span class="o">=</span> <span class="n">pose1</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">pose2</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">x</span>
+    <span class="n">dy</span> <span class="o">=</span> <span class="n">pose1</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">pose2</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">y</span>
+    <span class="n">dz</span> <span class="o">=</span> <span class="n">pose1</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">z</span> <span class="o">-</span> <span class="n">pose2</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">z</span>
+    <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">dx</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">dy</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">dz</span><span class="o">**</span><span class="mi">2</span><span class="p">),</span> <span class="mf">0.0</span>  <span class="c1"># Orientation skipped for simplicity</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">monitor_pose_callback</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">targets</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">target_pose</span><span class="p">,</span> <span class="n">action</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">targets</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">found_targets</span><span class="p">:</span> <span class="k">continue</span>
+        <span class="n">prev_ok</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">targets</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">found_targets</span><span class="p">)</span>
+        <span class="n">error</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">calculate_pose_error</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">target_pose</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">error</span> <span class="o">&lt;</span> <span class="mf">0.001</span> <span class="ow">and</span> <span class="n">prev_ok</span><span class="p">:</span>
+            <span class="n">found_targets</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
+            <span class="n">LaserOn</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span> <span class="k">if</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">&quot;on&quot;</span> <span class="k">else</span> <span class="n">LaserOff</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">weldOn</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span> <span class="k">if</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">&quot;on&quot;</span> <span class="k">else</span> <span class="n">weldOff</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">monitor_pose_callback</span></code> is a subscriber callback that triggers welding and laser IO actions when the robot’s pose reaches specified targets within tolerance.</p>
+</section>
+<section id="initialize-ros-node-and-services">
+<h2>5. Initialize ROS Node and Services<a class="headerlink" href="#initialize-ros-node-and-services" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">rospy</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fc_msgs.srv</span><span class="w"> </span><span class="kn">import</span> <span class="n">ExecuteCartesianTrajectory</span><span class="p">,</span> <span class="n">SetPose</span><span class="p">,</span> <span class="n">SetIO</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">le_classmate_ros.srv</span><span class="w"> </span><span class="kn">import</span> <span class="n">LaserEmit</span><span class="p">,</span> <span class="n">Weld</span><span class="p">,</span> <span class="n">LaserArm</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">geometry_msgs.msg</span><span class="w"> </span><span class="kn">import</span> <span class="n">PoseStamped</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">comet_rpc</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rpc</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+
+<span class="n">rospy</span><span class="o">.</span><span class="n">init_node</span><span class="p">(</span><span class="s1">&#39;dxf_trajectory&#39;</span><span class="p">)</span>
+
+<span class="c1"># Wait for required services</span>
+<span class="n">rospy</span><span class="o">.</span><span class="n">wait_for_service</span><span class="p">(</span><span class="s1">&#39;/real/fc_set_pose&#39;</span><span class="p">)</span>
+<span class="n">rospy</span><span class="o">.</span><span class="n">wait_for_service</span><span class="p">(</span><span class="s1">&#39;/real/fc_execute_cartesian_trajectory_async&#39;</span><span class="p">)</span>
+<span class="n">rospy</span><span class="o">.</span><span class="n">wait_for_service</span><span class="p">(</span><span class="s1">&#39;/weld_start&#39;</span><span class="p">)</span>
+<span class="n">rospy</span><span class="o">.</span><span class="n">wait_for_service</span><span class="p">(</span><span class="s1">&#39;/weld_end&#39;</span><span class="p">)</span>
+<span class="n">rospy</span><span class="o">.</span><span class="n">wait_for_service</span><span class="p">(</span><span class="s1">&#39;/laser_emit_start&#39;</span><span class="p">)</span>
+<span class="n">rospy</span><span class="o">.</span><span class="n">wait_for_service</span><span class="p">(</span><span class="s1">&#39;/laser_emit_stop&#39;</span><span class="p">)</span>
+<span class="n">rospy</span><span class="o">.</span><span class="n">wait_for_service</span><span class="p">(</span><span class="s1">&#39;/set_io_value&#39;</span><span class="p">)</span>
+<span class="n">rospy</span><span class="o">.</span><span class="n">wait_for_service</span><span class="p">(</span><span class="s1">&#39;/laser_ready_arm&#39;</span><span class="p">)</span>
+<span class="n">rospy</span><span class="o">.</span><span class="n">wait_for_service</span><span class="p">(</span><span class="s1">&#39;/laser_disarm&#39;</span><span class="p">)</span>
+<span class="n">rospy</span><span class="o">.</span><span class="n">wait_for_service</span><span class="p">(</span><span class="s1">&#39;/set_override&#39;</span><span class="p">)</span>
+
+<span class="c1"># Create service proxies</span>
+<span class="n">set_pose</span> <span class="o">=</span> <span class="n">rospy</span><span class="o">.</span><span class="n">ServiceProxy</span><span class="p">(</span><span class="s1">&#39;/real/fc_set_pose&#39;</span><span class="p">,</span> <span class="n">SetPose</span><span class="p">)</span>
+<span class="n">execTraj</span> <span class="o">=</span> <span class="n">rospy</span><span class="o">.</span><span class="n">ServiceProxy</span><span class="p">(</span><span class="s1">&#39;/real/fc_execute_cartesian_trajectory_async&#39;</span><span class="p">,</span> <span class="n">ExecuteCartesianTrajectory</span><span class="p">)</span>
+<span class="n">weldOn</span> <span class="o">=</span> <span class="n">rospy</span><span class="o">.</span><span class="n">ServiceProxy</span><span class="p">(</span><span class="s1">&#39;/weld_start&#39;</span><span class="p">,</span> <span class="n">Weld</span><span class="p">)</span>
+<span class="n">weldOff</span> <span class="o">=</span> <span class="n">rospy</span><span class="o">.</span><span class="n">ServiceProxy</span><span class="p">(</span><span class="s1">&#39;/weld_end&#39;</span><span class="p">,</span> <span class="n">Weld</span><span class="p">)</span>
+<span class="n">LaserOn</span> <span class="o">=</span> <span class="n">rospy</span><span class="o">.</span><span class="n">ServiceProxy</span><span class="p">(</span><span class="s1">&#39;/laser_emit_start&#39;</span><span class="p">,</span> <span class="n">LaserEmit</span><span class="p">)</span>
+<span class="n">LaserOff</span> <span class="o">=</span> <span class="n">rospy</span><span class="o">.</span><span class="n">ServiceProxy</span><span class="p">(</span><span class="s1">&#39;/laser_emit_stop&#39;</span><span class="p">,</span> <span class="n">LaserEmit</span><span class="p">)</span>
+<span class="n">Set_IO</span> <span class="o">=</span> <span class="n">rospy</span><span class="o">.</span><span class="n">ServiceProxy</span><span class="p">(</span><span class="s1">&#39;/set_io_value&#39;</span><span class="p">,</span> <span class="n">SetIO</span><span class="p">)</span>
+<span class="n">Laser_Arm</span> <span class="o">=</span> <span class="n">rospy</span><span class="o">.</span><span class="n">ServiceProxy</span><span class="p">(</span><span class="s1">&#39;/laser_ready_arm&#39;</span><span class="p">,</span> <span class="n">LaserArm</span><span class="p">)</span>
+<span class="n">Laser_Disarm</span> <span class="o">=</span> <span class="n">rospy</span><span class="o">.</span><span class="n">ServiceProxy</span><span class="p">(</span><span class="s1">&#39;/laser_disarm&#39;</span><span class="p">,</span> <span class="n">LaserArm</span><span class="p">)</span>
+<span class="n">set_override</span> <span class="o">=</span> <span class="n">rospy</span><span class="o">.</span><span class="n">ServiceProxy</span><span class="p">(</span><span class="s1">&#39;/set_override&#39;</span><span class="p">,</span> <span class="n">Trigger</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This block initializes your ROS node and service clients needed to control the welding process.</p>
+</section>
+<section id="setup-monitoring-execute-trajectory">
+<h2>6. Setup Monitoring, Execute Trajectory<a class="headerlink" href="#setup-monitoring-execute-trajectory" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">poses</span> <span class="o">=</span> <span class="n">parse_dxf_to_poses</span><span class="p">(</span><span class="n">DXF_FILE_PATH</span><span class="p">)</span>
+<span class="n">found_targets</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+<span class="c1"># Save poses to file for debugging</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/root/ros1_ws/src/le_classmate_ros/data/poses.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">poses</span><span class="p">):</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">p</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">x</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">p</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">y</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">p</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">z</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Monitor only certain indices</span>
+<span class="n">to_monitor_off_indices</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">9</span><span class="p">]</span>
+<span class="n">to_monitor_on_indices</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">10</span><span class="p">]</span>
+
+<span class="n">combined_targets</span> <span class="o">=</span> <span class="p">[(</span><span class="n">i</span><span class="p">,</span> <span class="n">poses</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="s2">&quot;off&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">to_monitor_off_indices</span><span class="p">]</span> <span class="o">+</span>                    <span class="p">[(</span><span class="n">i</span><span class="p">,</span> <span class="n">poses</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="s2">&quot;on&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">to_monitor_on_indices</span><span class="p">]</span>
+<span class="n">combined_targets</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+
+<span class="n">rospy</span><span class="o">.</span><span class="n">Subscriber</span><span class="p">(</span><span class="s1">&#39;/real/tool0_pose&#39;</span><span class="p">,</span> <span class="n">PoseStamped</span><span class="p">,</span> <span class="n">monitor_pose_callback</span><span class="p">,</span> <span class="n">callback_args</span><span class="o">=</span><span class="p">(</span><span class="n">combined_targets</span><span class="p">,))</span>
+</pre></div>
+</div>
+<p>This section selects key trajectory points to monitor and binds them to the callback for IO control.</p>
+</section>
+<section id="begin-motion-execution">
+<h2>7. Begin Motion Execution<a class="headerlink" href="#begin-motion-execution" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Move to starting pose</span>
+<span class="n">set_pose</span><span class="p">(</span><span class="n">poses</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">pose</span><span class="p">,</span> <span class="s1">&#39;/base_link&#39;</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="s1">&#39;PTP&#39;</span><span class="p">)</span>
+
+<span class="c1"># Setup welding systems</span>
+<span class="n">set_override</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span> <span class="c1"># Ensure override is set to 100</span>
+<span class="n">Set_IO</span><span class="p">(</span><span class="s1">&#39;Digital_OUT&#39;</span><span class="p">,</span> <span class="mi">47</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">Laser_Arm</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">LaserOn</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">weldOn</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Execute trajectory</span>
+<span class="n">execTraj</span><span class="p">([</span><span class="n">p</span><span class="o">.</span><span class="n">pose</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">poses</span><span class="p">],</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+
+<span class="c1"># Shut down</span>
+<span class="n">weldOff</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">set_pose</span><span class="p">(</span><span class="n">poses</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">pose</span><span class="p">,</span> <span class="s1">&#39;/base_link&#39;</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="s1">&#39;PTP&#39;</span><span class="p">)</span>
+<span class="n">LaserOff</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">Laser_Disarm</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Finally, the robot moves through the full trajectory, with laser/weld triggered as it hits waypoints. After execution, the system is shut down cleanly.</p>
+</section>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Parse DXF into <code class="docutils literal notranslate"><span class="pre">PoseStamped</span></code> waypoints</p></li>
+<li><p>Scale/center into workspace</p></li>
+<li><p>Monitor robot motion and trigger actions using <code class="docutils literal notranslate"><span class="pre">Subscriber</span></code></p></li>
+<li><p>Execute path with real-time IO via <code class="docutils literal notranslate"><span class="pre">ServiceProxy</span></code></p></li>
+</ul>
+<p>This pattern can be reused for painting, welding, inspection, and more.</p>
+<hr>
+</section>
+</section>
+<section id="tutorial-2-ros-welding-routine-explained">
+<h1>Tutorial 2 - ROS Welding Routine Explained<a class="headerlink" href="#tutorial-2-ros-welding-routine-explained" title="Link to this heading"></a></h1>
+<p>This <a class="reference external" href="https://github.com/cmu-mfi/le_classmate_ros/blob/main/scripts/layered_test.py">Python script</a> performs a simple two-pass laser welding operation using predefined poses and ROS service calls. Below is a breakdown of the key parts of the code.</p>
+<p><img alt="TwoLayerPrint" src="../../_images/two_layerprint.png" /></p>
+<section id="imports-and-constants">
+<h2>1. Imports and Constants<a class="headerlink" href="#imports-and-constants" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">rospy</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">ezdxf</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tf</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">geometry_msgs.msg</span><span class="w"> </span><span class="kn">import</span> <span class="n">Pose</span><span class="p">,</span> <span class="n">PoseStamped</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fc_msgs.srv</span><span class="w"> </span><span class="kn">import</span> <span class="n">ExecuteCartesianTrajectory</span><span class="p">,</span> <span class="n">SetPose</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ezdxf.math</span><span class="w"> </span><span class="kn">import</span> <span class="n">BoundingBox2d</span><span class="p">,</span> <span class="n">Vec2</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">comet_rpc</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rpc</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">le_classmate_ros.Welding</span><span class="w"> </span><span class="kn">import</span> <span class="n">Welder</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">le_classmate_ros.srv</span><span class="w"> </span><span class="kn">import</span> <span class="n">LaserArm</span><span class="p">,</span> <span class="n">LaserEmit</span><span class="p">,</span> <span class="n">Weld</span><span class="p">,</span> <span class="n">SetIO</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">std_srvs.srv</span><span class="w"> </span><span class="kn">import</span> <span class="n">Trigger</span>
+</pre></div>
+</div>
+<p>These import necessary libraries for ROS control, DXF processing, math, and I/O. The services and message types are specific to a laser welding robot setup.</p>
+</section>
+<section id="fixed-parameters-and-pose-definitions">
+<h2>2. Fixed Parameters and Pose Definitions<a class="headerlink" href="#fixed-parameters-and-pose-definitions" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">FIXED_Z_1</span> <span class="o">=</span> <span class="mf">0.403</span>
+<span class="n">FIXED_Z_2</span> <span class="o">=</span> <span class="mf">0.405</span>
+<span class="n">FIXED_QUAT</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.707</span><span class="p">,</span> <span class="mi">0</span> <span class="p">,</span> <span class="o">-</span><span class="mf">0.707</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">FIXED_Y</span> <span class="o">=</span> <span class="mf">0.02</span>
+</pre></div>
+</div>
+<p>We define fixed heights and orientations for the welding tool. Then we create 4 poses: two for the first weld path, and two for the second (slightly offset in Z).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">PointA_1</span> <span class="o">=</span> <span class="n">PoseStamped</span><span class="p">()</span>
+<span class="n">PointA_1</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">PointA_1</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">PointA_1</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="mf">0.51</span><span class="p">,</span> <span class="n">FIXED_Y</span><span class="p">,</span> <span class="n">FIXED_Z_1</span>
+<span class="n">PointA_1</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">orientation</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">PointA_1</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">orientation</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">PointA_1</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">orientation</span><span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="n">PointA_1</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">orientation</span><span class="o">.</span><span class="n">w</span> <span class="o">=</span> <span class="n">FIXED_QUAT</span>
+</pre></div>
+</div>
+<p>This is repeated similarly for <code class="docutils literal notranslate"><span class="pre">PointB_1</span></code>, <code class="docutils literal notranslate"><span class="pre">PointA_2</span></code>, <code class="docutils literal notranslate"><span class="pre">PointB_2</span></code>.</p>
+</section>
+<section id="main-execution-block">
+<h2>3. Main Execution Block<a class="headerlink" href="#main-execution-block" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">rospy</span><span class="o">.</span><span class="n">init_node</span><span class="p">(</span><span class="s1">&#39;dxf_trajectory&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We initialize the ROS node and wait for all required services to be available.</p>
+</section>
+<section id="service-clients-setup">
+<h2>4. Service Clients Setup<a class="headerlink" href="#service-clients-setup" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">set_pose</span> <span class="o">=</span> <span class="n">rospy</span><span class="o">.</span><span class="n">ServiceProxy</span><span class="p">(</span><span class="s1">&#39;/real/fc_set_pose&#39;</span><span class="p">,</span> <span class="n">SetPose</span><span class="p">)</span>
+<span class="n">execTraj</span> <span class="o">=</span> <span class="n">rospy</span><span class="o">.</span><span class="n">ServiceProxy</span><span class="p">(</span><span class="s1">&#39;/real/fc_execute_cartesian_trajectory_async&#39;</span><span class="p">,</span> <span class="n">ExecuteCartesianTrajectory</span><span class="p">)</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<p>These are the clients used to command robot motion, welding, and laser behavior.</p>
+</section>
+<section id="enabling-welding">
+<h2>5. Enabling welding<a class="headerlink" href="#enabling-welding" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">set_override</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span> <span class="c1"># Set override to 100</span>
+<span class="n">Set_IO</span><span class="p">(</span><span class="s1">&#39;Digital_OUT&#39;</span><span class="p">,</span> <span class="mi">47</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="c1"># Enable external control</span>
+</pre></div>
+</div>
+<p>We set the necessary flags to enable external control and welding.</p>
+</section>
+<section id="welding-routine">
+<h2>6. Welding Routine<a class="headerlink" href="#welding-routine" title="Link to this heading"></a></h2>
+<section id="first-pass">
+<h3>First Pass:<a class="headerlink" href="#first-pass" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">set_pose</span><span class="p">(</span><span class="n">PointA_1</span><span class="o">.</span><span class="n">pose</span><span class="p">,</span> <span class="s1">&#39;/base_link&#39;</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="s1">&#39;PTP&#39;</span><span class="p">)</span>
+<span class="n">Laser_Arm</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">LaserOn</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">weldOn</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">set_pose</span><span class="p">(</span><span class="n">PointB_1</span><span class="o">.</span><span class="n">pose</span><span class="p">,</span> <span class="s1">&#39;/base_link&#39;</span><span class="p">,</span> <span class="mf">0.0075</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="s1">&#39;PTP&#39;</span><span class="p">)</span>
+<span class="n">weldOff</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">LaserOff</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We move to start position, arm the laser, begin welding, move to the end point, and stop.</p>
+</section>
+<section id="second-pass">
+<h3>Second Pass:<a class="headerlink" href="#second-pass" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">set_pose</span><span class="p">(</span><span class="n">PointA_2</span><span class="o">.</span><span class="n">pose</span><span class="p">,</span> <span class="s1">&#39;/base_link&#39;</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="s1">&#39;PTP&#39;</span><span class="p">)</span>
+<span class="n">LaserOn</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">weldOn</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">set_pose</span><span class="p">(</span><span class="n">PointB_2</span><span class="o">.</span><span class="n">pose</span><span class="p">,</span> <span class="s1">&#39;/base_link&#39;</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="s1">&#39;PTP&#39;</span><span class="p">)</span>
+<span class="n">weldOff</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">set_pose</span><span class="p">(</span><span class="n">PointB_2</span><span class="o">.</span><span class="n">pose</span><span class="p">,</span> <span class="s1">&#39;/base_link&#39;</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="s1">&#39;PTP&#39;</span><span class="p">)</span>  <span class="c1"># Move away</span>
+<span class="n">LaserOff</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">Laser_Disarm</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Same as the first pass, but slightly higher in Z (a “second layer” weld).</p>
+</section>
+</section>
+<section id="id1">
+<h2>7. Summary<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<p>This code executes a controlled laser weld routine along two horizontal lines using ROS services. Each phase—arming, emitting, welding, and disarming—is explicitly timed and ordered.</p>
+<p>To extend this:</p>
+<ul class="simple">
+<li><p>Add more poses to trace complex geometries.</p></li>
+<li><p>Convert DXF lines to pose sequences.</p></li>
+<li><p>Add feedback/error handling for real deployments.</p></li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="tutorial-3-using-the-welder-class-without-ros">
+<h1>Tutorial 3 - Using the <code class="docutils literal notranslate"><span class="pre">Welder</span></code> Class Without ROS<a class="headerlink" href="#tutorial-3-using-the-welder-class-without-ros" title="Link to this heading"></a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">Welding.Welder</span></code> class can be used directly in standalone <a class="reference external" href="https://github.com/cmu-mfi/le_classmate_ros/blob/main/scripts/welder_class_example.py">Python scripts</a> to control welding I/O over RPC (<a class="reference external" href="https://github.com/gavanderhoorn/comet_rpc">comet_rpc</a>):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">fanuc_ros1.le_classmate_ros.src.Welding</span><span class="w"> </span><span class="kn">import</span> <span class="n">Welder</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">comet_rpc</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rpc</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">def vmip_writeva(</span>
+<span class="sd">    server: str, prog_name: str, var_name: str, value: t.Union[str, int, float]</span>
+<span class="sd">) -&gt; VmIpWriteVaResponse:</span>
+<span class="sd">    &quot;&quot;&quot;Write &#39;value&#39; to the variable &#39;var_name&#39; in program &#39;prog_name&#39;.</span>
+<span class="sd">    Set `prog_name` to `&quot;*SYSTEM*&quot;` to write to system variables.</span>
+<span class="sd">    `value` will always be submitted as a string, even for (system) variables</span>
+<span class="sd">    which are of a different type. `COMET` apparently tries to parse the</span>
+<span class="sd">    string representation and converts it to the required type when possible.</span>
+<span class="sd">    The string representations are expected to be identical to those found in</span>
+<span class="sd">    `.VA` files.</span>
+
+<span class="sd">    OVERRIDE is a system variable which can be set to a value between 0 and 100. It needs to be set to 100 to allow welding and movement.</span>
+<span class="sd">    the prog_name is &quot;*SYSTEM*&quot; as override is a system variable</span>
+
+<span class="sd">    THIS MUST BE DONE BEFORE EVERY PROGRAM RUN TO ENSURE THAT OVERRIDE IS SET TO 100. NOT DOING SO WILL RESULT IN AN ERROR WHEN TRYING TO START WELDING.</span>
+<span class="sd">    The override value is set to 100 in the constructor of the Welder class, however, it still may need to be set again here.</span>
+<span class="sd">    Best practice is to always set it in every program.</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+
+    <span class="c1"># Setting up the server</span>
+    <span class="n">server</span> <span class="o">=</span> <span class="s1">&#39;192.168.2.151&#39;</span>
+    <span class="n">welder</span> <span class="o">=</span> <span class="n">Welder</span><span class="p">(</span><span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">)</span>
+
+    <span class="c1"># Setting overwrite to 100 - refer to the docstring of vmip_writeva above for more information</span>
+    <span class="n">rpc</span><span class="o">.</span><span class="n">vmip_writeva</span><span class="p">(</span><span class="n">server</span><span class="p">,</span> <span class="s2">&quot;*SYSTEM*&quot;</span><span class="p">,</span> <span class="s2">&quot;$MCR.$GENOVERRIDE&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+
+    <span class="c1"># Enabling external control - i/o value that control the external control must be set to 1</span>
+    <span class="n">rpc</span><span class="o">.</span><span class="n">iovalset</span><span class="p">(</span><span class="n">server</span><span class="p">,</span> <span class="n">rpc</span><span class="o">.</span><span class="n">IoType</span><span class="o">.</span><span class="n">DigitalOut</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="mi">47</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># Arming the Laser</span>
+    <span class="n">welder</span><span class="o">.</span><span class="n">laser_ready_arm</span><span class="p">()</span>
+
+    <span class="c1"># Starting Laser Emission</span>
+    <span class="n">welder</span><span class="o">.</span><span class="n">laser_start_emit</span><span class="p">()</span>
+
+    <span class="c1"># Starting welding (robot must be in motion when this state is active)</span>
+    <span class="n">welder</span><span class="o">.</span><span class="n">weld_start</span><span class="p">()</span>
+
+    <span class="c1"># Move the robot here using your preferred method</span>
+
+    <span class="c1"># Stopping welding</span>
+    <span class="n">welder</span><span class="o">.</span><span class="n">weld_end</span><span class="p">()</span>
+
+    <span class="c1"># Stopping Laser Emission</span>
+    <span class="n">welder</span><span class="o">.</span><span class="n">laser_stop_emit</span><span class="p">()</span>
+
+    <span class="c1"># Disarming the Laser</span>
+    <span class="n">welder</span><span class="o">.</span><span class="n">laser_disarm</span><span class="p">()</span>
+
+
+</pre></div>
+</div>
+<p>The class handles all relevant I/O mappings and safety interlocks. An example is shown in scripts/welder_class_example.py</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="le_classmate.html" class="btn btn-neutral float-left" title="Lincoln Electric Classmate Laser" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../amr/amr.html" class="btn btn-neutral float-right" title="Autonomous Mobile Robots" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright CMU.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,348 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FANUC ROS1 Interface &mdash; MFI Testbed 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=066d2f63" />
+      <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
+
+  
+    <link rel="shortcut icon" href="../../_static/white-logo.ico"/>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Tutorial 1 - Testing functionalities and using scripts to test actions and services" href="tutorials.html" />
+    <link rel="prev" title="Loop Demo" href="../../loop_demo.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            MFI Testbed
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../system_overview.html">System Overview</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Testbed Resources</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../resources/mes.html">Manufacturing Executive System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resources/robot_arms.html">Robot Arms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resources/amr.html">Autonomous Mobile Robots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resources/plc.html">Safety Light Curtains</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Demos</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../integrated_demo_2024.html">Integrated Demo 2024</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../loop_demo.html">Loop Demo</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">FANUC ROS1 Interface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#software-architecture">Software Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ros-packages">ROS Packages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ros-services">ROS Services</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ros-actions">ROS Actions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ros-topic-subscribers">ROS Topic Subscribers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ros-topic-publishers">ROS Topic Publishers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#tutorials">Tutorials</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tutorials.html">Tutorial 1 - Testing functionalities and using scripts to test actions and services</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials.html#tutorial-2-configuring-the-interface-for-another-fanuc-robot-arm">Tutorial 2 - Configuring the Interface for another Fanuc Robot Arm</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../le_classmate/le_classmate.html">Lincoln Electric Classmate Laser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../amr/amr.html">Autonomous Mobile Robots</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">MFI Testbed</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">FANUC ROS1 Interface</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/cmu-mfi/testbed/blob/master/doc/tutorials/fanuc_ros1/fanuc_ros1.md" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="fanuc-ros1-interface">
+<h1>FANUC ROS1 Interface<a class="headerlink" href="#fanuc-ros1-interface" title="Link to this heading"></a></h1>
+<p><a href="https://github.com/cmu-mfi/fanuc_ros1" class="inline-button"><i class="fab fa-github"></i>fanuc_ros1</a></p>
+<p>The fanuc_ros1 repository is a ROS1 interface for FANUC robot arms, specifically designed to work with the R-30iB+ controller. It provides a framework for motion planning and execution using MoveIt, along with various skills for industrial tasks.</p>
+<section id="software-architecture">
+<h2>Software Architecture<a class="headerlink" href="#software-architecture" title="Link to this heading"></a></h2>
+<p>The fanuc_ros1 package is an interface layer that enables planning and execution via MoveIt, allows for peripheral control and launches the RViz GUI. In the standard ROS-I architecture, it would fit as shown below. Details and tutorials to setup the driver and interface can be found <a class="reference external" href="http://wiki.ros.org/fanuc/Tutorials">here</a>.</p>
+<p><img alt="FANUC_ROS" src="../../_images/ros_industrial_architecture.png" />
+<em>Source: <a class="reference external" href="http://wiki.ros.org/Industrial">http://wiki.ros.org/Industrial</a></em></p>
+<ul class="simple">
+<li><p><strong>ROS-I Controller Layer</strong> is setup at the robot controller (R-30iB+). <a class="reference external" href="https://wiki.ros.org/fanuc/Tutorials/hydro/Installation">Details</a>
+<br></br></p></li>
+<li><p><strong>ROS-I Interface Layer</strong> <br />
+<a class="reference external" href="https://github.com/cmu-mfi/fanuc_ros1/tree/main/fanuc_lrmate200id_support">fanuc_lrmate200id_support</a> <br />
+<a class="reference external" href="http://wiki.ros.org/fanuc">Open-source community</a> has a support package for many industrial robots, including LR Mate 200iD.
+</br></br></p></li>
+<li><p><strong>MoveIt Layer</strong> <br />
+<a class="reference external" href="https://github.com/cmu-mfi/fanuc_ros1/tree/main/fanuc_lrmate200id7l_moveit_config">fanuc_lrmate200id7l_moveit_config</a> <br />
+We developed moveit configuration package for LR Mate 200iD robots which is used for trajectory planning.
+</br></br></p></li>
+<li><p><strong>Application Layer</strong> <br />
+<a class="reference external" href="https://github.com/cmu-mfi/fanuc_ros1/tree/main/fc_tasks">fc_tasks</a> <br />
+We developed a set of services and actions to perform various industrial tasks using the robot arm. These allow to develop custom application using the robot arm without worrying about the underlying motion planning and execution.</p></li>
+</ul>
+<hr>
+</section>
+<section id="ros-packages">
+<h2>ROS Packages<a class="headerlink" href="#ros-packages" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>fc_launch</p></li>
+<li><p>fc_msgs</p></li>
+<li><p>fanuc_lrmate200id_support</p></li>
+<li><p>fanuc_lrmate200id7l_moveit_config</p></li>
+<li><p>fanuc</p></li>
+<li><p><strong>fc_tasks</strong></p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">fc_tasks</span></code> is the core package which either uses other listed packages or packages, like fc_launch, use fc_tasks to launch the interface.</p>
+</div>
+<section id="ros-services">
+<h3>ROS Services<a class="headerlink" href="#ros-services" title="Link to this heading"></a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Service Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/fc_get_pose</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">GetPose.srv</span></code></p></td>
+<td><p>Retrieve the current pose of the robot</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/fc_set_pose</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SetPose.srv</span></code></p></td>
+<td><p>Set a desired pose for the robot</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/fc_set_joints</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SetJoints.srv</span></code></p></td>
+<td><p>Set robot joint values (uses BiTRRT for planning)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/fc_execute_trajectory</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ExecuteKnownTrajectory.srv</span></code></p></td>
+<td><p>Execute a predefined trajectory</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/fc_stop_trajectory</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">StopTrajectory.srv</span></code></p></td>
+<td><p>Stop the current trajectory execution</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/fc_execute_cartesian_trajectory</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ExecuteCartesianTrajectory.srv</span></code></p></td>
+<td><p>Execute a cartesian space trajectory</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/fc_execute_cartesian_trajectory_async</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ExecuteCartesianTrajectory.srv</span></code></p></td>
+<td><p>Execute a cartesian trajectory asynchronously</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/set_io_value</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SetIO.srv</span></code></p></td>
+<td><p>Set or write a value to an I/O port</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/read_io_value</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ReadIO.srv</span></code></p></td>
+<td><p>Read or get the value from an I/O port</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ros-actions">
+<h3>ROS Actions<a class="headerlink" href="#ros-actions" title="Link to this heading"></a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Action Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/fc_go_to_pose</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">GoToPose.action</span></code></p></td>
+<td><p>Move the robot to a specified pose</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/fc_go_to_pose_async</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">GoToPose.action</span></code></p></td>
+<td><p>Move the robot to a pose asynchronously</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/fc_go_to_joints</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">GoToJoints.action</span></code></p></td>
+<td><p>Move robot joints to target values (uses BiTRRT)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/fc_execute_cartesian_trajectory_action</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ExecuteCartesianTrajectory.action</span></code></p></td>
+<td><p>Execute a cartesian trajectory as an action</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ros-topic-subscribers">
+<h3>ROS Topic Subscribers<a class="headerlink" href="#ros-topic-subscribers" title="Link to this heading"></a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Topic</p></th>
+<th class="head"><p>Topic Name/Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/check_moving</span></code></p></td>
+<td><p>Status Topic</p></td>
+<td><p>Indicates whether the robot or manipulator is currently moving</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/execute_trajectory/status</span></code></p></td>
+<td><p>Status Topic</p></td>
+<td><p>Publishes the current status of the ongoing trajectory execution</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/joint_states</span></code></p></td>
+<td><p>Sensor Topic</p></td>
+<td><p>Publishes the current joint positions, velocities, and efforts</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ros-topic-publishers">
+<h3>ROS Topic Publishers<a class="headerlink" href="#ros-topic-publishers" title="Link to this heading"></a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Topic Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/tool0_pose</span></code></p></td>
+<td><p>Pose Publisher</p></td>
+<td><p>Publishes the current end effector (tool) pose</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/io_states_DOUT</span></code></p></td>
+<td><p>Digital Out</p></td>
+<td><p>Publishes all Digital Output I/O states</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/io_states_DIN</span></code></p></td>
+<td><p>Digital In</p></td>
+<td><p>Publishes all Digital Input I/O states</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/io_states_AOUT</span></code></p></td>
+<td><p>Analog Out</p></td>
+<td><p>Publishes all Analog Output I/O states</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/io_states_AIN</span></code></p></td>
+<td><p>Analog In</p></td>
+<td><p>Publishes all Analog Input I/O states</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Note: All methods called by these elements are detailed in the Doxygen formatting style.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This package also enables Fanuc I/O control using <a class="reference external" href="https://github.com/gavanderhoorn/comet_rpc">comet_rpc</a>. Using the io.launch file, a Fanuc_IO ROS node is launched with the following functionality</p>
+</div>
+</section>
+</section>
+<section id="tutorials">
+<h2>Tutorials<a class="headerlink" href="#tutorials" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorial 1 - Testing functionalities and using scripts to test actions and services</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html#testing-functionalities">Testing Functionalities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html#setpose-service-test">SetPose Service Test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html#executecartesiantrajectory-service-test">ExecuteCartesianTrajectory Service Test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html#gotopose-action-test">GoToPose Action Test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html#executecartesiantrajectory-action-test">ExecuteCartesianTrajectory Action Test</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html#tutorial-2-configuring-the-interface-for-another-fanuc-robot-arm">Tutorial 2 - Configuring the Interface for another Fanuc Robot Arm</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html#making-changes">Making changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html#testing-changes">Testing changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html#steps-to-create-a-support-package-for-ros-i">Steps to create a support package for ROS-I</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../../loop_demo.html" class="btn btn-neutral float-left" title="Loop Demo" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tutorials.html" class="btn btn-neutral float-right" title="Tutorial 1 - Testing functionalities and using scripts to test actions and services" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright CMU.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,293 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MFI Testbed &mdash; MFI Testbed 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=066d2f63" />
+      <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
+
+  
+    <link rel="shortcut icon" href="_static/white-logo.ico"/>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="System Overview" href="system_overview.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="#" class="icon icon-home">
+            MFI Testbed
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="system_overview.html">System Overview</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Testbed Resources</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="resources/mes.html">Manufacturing Executive System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resources/robot_arms.html">Robot Arms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resources/amr.html">Autonomous Mobile Robots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resources/plc.html">Safety Light Curtains</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Demos</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="integrated_demo_2024.html">Integrated Demo 2024</a></li>
+<li class="toctree-l1"><a class="reference internal" href="loop_demo.html">Loop Demo</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/fanuc_ros1/fanuc_ros1.html">FANUC ROS1 Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/le_classmate/le_classmate.html">Lincoln Electric Classmate Laser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/amr/amr.html">Autonomous Mobile Robots</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">MFI Testbed</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">MFI Testbed</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/cmu-mfi/testbed/blob/master/doc/index.md" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <!-- # MFI Hazelbots Testbed -->
+<section id="mfi-testbed">
+<h1>MFI Testbed<a class="headerlink" href="#mfi-testbed" title="Link to this heading"></a></h1>
+<p>The objective of the project is to emulate high-mix/low-volume continuous manufacturing. The envisioned testbed is a circular manufacturing ecosystem where parts are assembled, then disassembled such that no material is wasted and where 24/7 operational costs are low, providing potential to generate large datasets. An initial target application is the assembly and disassembly of LEGO® blocks as a fun and compelling technology demonstrator and driver. The expected testbed will grow and build upon a reusable and open-sourced codebase.</p>
+<p><em><insert license and collaboration medium></em></p>
+<iframe width="704" height="396" src="https://www.youtube.com/embed/Jn13juABN_o" title="MFI Testbed V1.0 Integrated Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<p><em>Executing orders of two LEGO® stickman human assembly/disassembly</em></p>
+<p>The version 1.0 of the integrated demo was possible due to the work of following contributors:</p>
+<blockquote>
+<div><p><em>Stephen Smith, Zack Rubinstein, Jiaoyang Li, Jingtian Yan, Oliver Kroemer, Kevin Zhang, Changliu Liu, Ruixuan Liu, Srinivasa Narasimhan, Karnik Ram, Robert Tamburo, Siddhant Wadhawa, Vineet Tambe, Sushant Jayanth, Sergi Widjaja, Soham Bhave, Gary Fedder, Rod Heiple, Shobhit Aggarwal</em></p>
+</div></blockquote>
+<hr class="docutils" />
+<section id="site-index">
+<h2>Site Index<a class="headerlink" href="#site-index" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="system_overview.html">System Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="system_overview.html#resources">Resources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system_overview.html#system-architecture">System Architecture</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Testbed Resources</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="resources/mes.html">Manufacturing Executive System</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="resources/mes.html#assembly-disassembly-order-workflow">Assembly/Disassembly Order Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="resources/mes.html#virtual-resources">Virtual Resources</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="resources/mes.html#human-operated-resources">Human operated Resources</a></li>
+<li class="toctree-l3"><a class="reference internal" href="resources/mes.html#no-task-resources">No task Resources</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="resources/robot_arms.html">Robot Arms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="resources/robot_arms.html#motion-stack-and-moveit">Motion Stack and MoveIt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="resources/robot_arms.html#skills">Skills</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="resources/robot_arms.html#lego-manipulation">LEGO® Manipulation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="resources/robot_arms.html#simulation">&gt; Simulation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="resources/robot_arms.html#assembly-disassembly-task">&gt; Assembly/Disassembly Task</a></li>
+<li class="toctree-l4"><a class="reference internal" href="resources/robot_arms.html#integration-with-mes">&gt; Integration with MES</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="resources/robot_arms.html#pallet-pick-and-place">Pallet Pick and Place</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="resources/robot_arms.html#other-utilities">Other Utilities</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="resources/amr.html">Autonomous Mobile Robots</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="resources/amr.html#system-architecture">System Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="resources/amr.html#simulation-environment">Simulation Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="resources/amr.html#integration-with-mes">Integration with MES</a></li>
+<li class="toctree-l2"><a class="reference internal" href="resources/amr.html#other-resources">Other Resources</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="resources/plc.html">Safety Light Curtains</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="resources/plc.html#system-overview">System Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="resources/plc.html#research-paper-s">Research Paper(s)</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Demos</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="integrated_demo_2024.html">Integrated Demo 2024</a></li>
+<li class="toctree-l1"><a class="reference internal" href="loop_demo.html">Loop Demo</a></li>
+</ul>
+</div>
+<!-- 
+```{toctree}
+:caption: Utilities
+utilities.md
+``` -->
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/fanuc_ros1/fanuc_ros1.html">FANUC ROS1 Interface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/fanuc_ros1/fanuc_ros1.html#software-architecture">Software Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/fanuc_ros1/fanuc_ros1.html#ros-packages">ROS Packages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/fanuc_ros1/fanuc_ros1.html#ros-services">ROS Services</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/fanuc_ros1/fanuc_ros1.html#ros-actions">ROS Actions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/fanuc_ros1/fanuc_ros1.html#ros-topic-subscribers">ROS Topic Subscribers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/fanuc_ros1/fanuc_ros1.html#ros-topic-publishers">ROS Topic Publishers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/fanuc_ros1/fanuc_ros1.html#tutorials">Tutorials</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/fanuc_ros1/tutorials.html">Tutorial 1 - Testing functionalities and using scripts to test actions and services</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tutorials/fanuc_ros1/tutorials.html#testing-functionalities">Testing Functionalities</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorials/fanuc_ros1/tutorials.html#setpose-service-test">SetPose Service Test</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorials/fanuc_ros1/tutorials.html#executecartesiantrajectory-service-test">ExecuteCartesianTrajectory Service Test</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorials/fanuc_ros1/tutorials.html#gotopose-action-test">GoToPose Action Test</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorials/fanuc_ros1/tutorials.html#executecartesiantrajectory-action-test">ExecuteCartesianTrajectory Action Test</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/fanuc_ros1/tutorials.html#tutorial-2-configuring-the-interface-for-another-fanuc-robot-arm">Tutorial 2 - Configuring the Interface for another Fanuc Robot Arm</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tutorials/fanuc_ros1/tutorials.html#making-changes">Making changes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorials/fanuc_ros1/tutorials.html#testing-changes">Testing changes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorials/fanuc_ros1/tutorials.html#steps-to-create-a-support-package-for-ros-i">Steps to create a support package for ROS-I</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/le_classmate/le_classmate.html">Lincoln Electric Classmate Laser</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/le_classmate/le_classmate.html#software-architecture">Software Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/le_classmate/le_classmate.html#le-classmate-ros-package">le_classmate_ros Package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/le_classmate/le_classmate.html#ros-services">ROS Services</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/le_classmate/le_classmate.html#welder-class">Welder Class</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/le_classmate/le_classmate.html#tutorials">Tutorials</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/le_classmate/tutorials.html">Tutorial 1 - DXF Trajectory Execution with Laser &amp; Welding Integration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tutorials/le_classmate/tutorials.html#prerequisites">1. Prerequisites</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorials/le_classmate/tutorials.html#load-and-parse-the-dxf-file">2. Load and Parse the DXF File</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorials/le_classmate/tutorials.html#center-and-scale-the-path">3. Center and Scale the Path</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorials/le_classmate/tutorials.html#monitor-tool-pose-and-trigger-io">4. Monitor Tool Pose and Trigger IO</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorials/le_classmate/tutorials.html#initialize-ros-node-and-services">5. Initialize ROS Node and Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorials/le_classmate/tutorials.html#setup-monitoring-execute-trajectory">6. Setup Monitoring, Execute Trajectory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorials/le_classmate/tutorials.html#begin-motion-execution">7. Begin Motion Execution</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorials/le_classmate/tutorials.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/le_classmate/tutorials.html#tutorial-2-ros-welding-routine-explained">Tutorial 2 - ROS Welding Routine Explained</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tutorials/le_classmate/tutorials.html#imports-and-constants">1. Imports and Constants</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorials/le_classmate/tutorials.html#fixed-parameters-and-pose-definitions">2. Fixed Parameters and Pose Definitions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorials/le_classmate/tutorials.html#main-execution-block">3. Main Execution Block</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorials/le_classmate/tutorials.html#service-clients-setup">4. Service Clients Setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorials/le_classmate/tutorials.html#enabling-welding">5. Enabling welding</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorials/le_classmate/tutorials.html#welding-routine">6. Welding Routine</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="tutorials/le_classmate/tutorials.html#first-pass">First Pass:</a></li>
+<li class="toctree-l5"><a class="reference internal" href="tutorials/le_classmate/tutorials.html#second-pass">Second Pass:</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="tutorials/le_classmate/tutorials.html#id1">7. Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/le_classmate/tutorials.html#tutorial-3-using-the-welder-class-without-ros">Tutorial 3 - Using the <code class="docutils literal notranslate"><span class="pre">Welder</span></code> Class Without ROS</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/amr/amr.html">Autonomous Mobile Robots</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/amr/amr.html#hardware-setup">Hardware Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/amr/amr.html#software-architecture">Software Architecture</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/amr/amr.html#description-of-topics-and-services">Description of topics and services</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/amr/amr.html#communication-flow">Communication Flow</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/amr/amr.html#tutorials">Tutorials</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/amr/tutorials.html">Tutorial 1 : Qt Application</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/amr/tutorials.html#tutorial-2-ros-2-interfaces">Tutorial 2 : ROS 2 Interfaces</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tutorials/amr/tutorials.html#amr-mp-400-interface">AMR MP-400 Interface</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorials/amr/tutorials.html#waypoint-server">Waypoint Server</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorials/amr/tutorials.html#waypoint-client">Waypoint Client</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/amr/tutorials.html#tutorial-3-mapping">Tutorial 3: Mapping</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="system_overview.html" class="btn btn-neutral float-right" title="System Overview" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright CMU.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

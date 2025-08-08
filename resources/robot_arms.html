@@ -1,0 +1,228 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Robot Arms &mdash; MFI Testbed 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=066d2f63" />
+      <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
+
+  
+    <link rel="shortcut icon" href="../_static/white-logo.ico"/>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Autonomous Mobile Robots" href="amr.html" />
+    <link rel="prev" title="Manufacturing Executive System" href="mes.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            MFI Testbed
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../system_overview.html">System Overview</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Testbed Resources</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="mes.html">Manufacturing Executive System</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Robot Arms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#motion-stack-and-moveit">Motion Stack and MoveIt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#skills">Skills</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#lego-manipulation">LEGO® Manipulation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#simulation">&gt; Simulation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#assembly-disassembly-task">&gt; Assembly/Disassembly Task</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#integration-with-mes">&gt; Integration with MES</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pallet-pick-and-place">Pallet Pick and Place</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#other-utilities">Other Utilities</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="amr.html">Autonomous Mobile Robots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plc.html">Safety Light Curtains</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Demos</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../integrated_demo_2024.html">Integrated Demo 2024</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../loop_demo.html">Loop Demo</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/fanuc_ros1/fanuc_ros1.html">FANUC ROS1 Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/le_classmate/le_classmate.html">Lincoln Electric Classmate Laser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/amr/amr.html">Autonomous Mobile Robots</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MFI Testbed</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Robot Arms</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/cmu-mfi/testbed/blob/master/doc/resources/robot_arms.md" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="robot-arms">
+<h1><a class="toc-backref" href="#id1" role="doc-backlink">Robot Arms</a><a class="headerlink" href="#robot-arms" title="Link to this heading"></a></h1>
+<p><img alt="Yaskawa GP4" src="../_images/motoman_gp4.png" />
+<em>Four <a class="reference external" href="https://www.motoman.com/en-us/products/robots/industrial/assembly-handling/gp-series/gp4">Yaskawa GP4 robots</a> at the testbed space</em></p>
+<nav class="contents" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#robot-arms" id="id1">Robot Arms</a></p>
+<ul>
+<li><p><a class="reference internal" href="#motion-stack-and-moveit" id="id2">Motion Stack and MoveIt</a></p></li>
+<li><p><a class="reference internal" href="#skills" id="id3">Skills</a></p>
+<ul>
+<li><p><a class="reference internal" href="#lego-manipulation" id="id4">LEGO® Manipulation</a></p>
+<ul>
+<li><p><a class="reference internal" href="#simulation" id="id5">&gt; Simulation</a></p></li>
+<li><p><a class="reference internal" href="#assembly-disassembly-task" id="id6">&gt; Assembly/Disassembly Task</a></p></li>
+<li><p><a class="reference internal" href="#integration-with-mes" id="id7">&gt; Integration with MES</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#pallet-pick-and-place" id="id8">Pallet Pick and Place</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#other-utilities" id="id9">Other Utilities</a></p></li>
+</ul>
+</li>
+</ul>
+</nav>
+<hr class="docutils" />
+<!-- 
+Moveit Config
+
+Skills
+
+> lego assembly 
+>   > simulation, assembly task, integration
+
+> pallet pick and place
+
+Other Utils 
+-->
+<section id="motion-stack-and-moveit">
+<h2><a class="toc-backref" href="#id2" role="doc-backlink">Motion Stack and MoveIt</a><a class="headerlink" href="#motion-stack-and-moveit" title="Link to this heading"></a></h2>
+<p><a href="https://github.com/cmu-mfi/motoman_ros1" class="inline-button"><i class="fab fa-github"></i>motoman_ros1</a></p>
+<p>ROS interface with the Yaskawa GP4 uses <a class="reference external" href="http://wiki.ros.org/motoman_driver"><code class="docutils literal notranslate"><span class="pre">motoman_driver</span></code></a> and ROS-Industrial stack to plan and execute trajectory. The figure below represents the stack. Details and tutorials to setup the driver and interface can be found <a class="reference external" href="http://wiki.ros.org/motoman_driver">here</a>.</p>
+<p><img alt="MotoROS" src="../_images/motoros_stack.jpg" />
+<em>Source: <a class="reference external" href="http://wiki.ros.org/motoman_driver">http://wiki.ros.org/motoman_driver</a></em></p>
+<ul class="simple">
+<li><p><strong>MotoROS Layer</strong> is setup at the robot controller (YRC1000). <a class="reference external" href="https://wiki.ros.org/motoman_driver/Tutorials/indigo/InstallServer">Details</a>
+</br></br></p></li>
+<li><p><strong>ROS-I Interface Layer</strong>
+<a class="reference external" href="https://github.com/ros-industrial/motoman/tree/433be15f6a27cb9a5715cc3887b1cd15ff33a8cb/motoman_gp4_support">motoman_gp4_support</a> <br />
+Open-source community has a support package for many industrial robots, including GP4.
+</br></br></p></li>
+<li><p><strong>MoveIt Layer</strong> <a class="reference external" href="https://github.com/cmu-mfi/motoman_ros1/tree/f6bb0a967dcad931a87ea3ccb57094d18ffced40/motoman_gp4_moveit_config">motoman_gp4_moveit_config</a> <br />
+We developed moveit configuration package for GP4 robots which is used for trajectory planning.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="skills">
+<h2><a class="toc-backref" href="#id3" role="doc-backlink">Skills</a><a class="headerlink" href="#skills" title="Link to this heading"></a></h2>
+<p>In v1.0 the robots are skilled to pick and place pallets of LEGO® baseplate and bricks, and manipulate bricks to assemble/disassemble structures.</p>
+<section id="lego-manipulation">
+<h3><a class="toc-backref" href="#id4" role="doc-backlink">LEGO® Manipulation</a><a class="headerlink" href="#lego-manipulation" title="Link to this heading"></a></h3>
+<p><a href="https://github.com/cmu-mfi/gp4-lego-assembly" class="inline-button"><i class="fab fa-github"></i>gp4-lego-assembly</a></p>
+<!-- TODO: insert GIF of LEGO assemble/disassemble -->
+<section id="simulation">
+<h4><a class="toc-backref" href="#id5" role="doc-backlink">&gt; Simulation</a><a class="headerlink" href="#simulation" title="Link to this heading"></a></h4>
+<p><img alt="LEGO Simulation" src="../_images/gp4_sim.gif" /></p>
+</section>
+<section id="assembly-disassembly-task">
+<h4><a class="toc-backref" href="#id6" role="doc-backlink">&gt; Assembly/Disassembly Task</a><a class="headerlink" href="#assembly-disassembly-task" title="Link to this heading"></a></h4>
+<!-- TODO: diagram of service call and motion planning -->
+</section>
+<section id="integration-with-mes">
+<h4><a class="toc-backref" href="#id7" role="doc-backlink">&gt; Integration with MES</a><a class="headerlink" href="#integration-with-mes" title="Link to this heading"></a></h4>
+</section>
+</section>
+<section id="pallet-pick-and-place">
+<h3><a class="toc-backref" href="#id8" role="doc-backlink">Pallet Pick and Place</a><a class="headerlink" href="#pallet-pick-and-place" title="Link to this heading"></a></h3>
+<p><a href="https://github.com/cmu-mfi/pallet_pick_and_place" class="inline-button"><i class="fab fa-github"></i>pallet_pick_and_place</a></p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="other-utilities">
+<h2><a class="toc-backref" href="#id9" role="doc-backlink">Other Utilities</a><a class="headerlink" href="#other-utilities" title="Link to this heading"></a></h2>
+<p><a href="https://github.com/cmu-mfi/testbed_camera_utils" class="inline-button"><i class="fab fa-github"></i>testbed_camera_utils</a> <a href="https://github.com/cmu-mfi/testbed_lin_actuator" class="inline-button"><i class="fab fa-github"></i>testbed_lin_actuator</a></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="mes.html" class="btn btn-neutral float-left" title="Manufacturing Executive System" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="amr.html" class="btn btn-neutral float-right" title="Autonomous Mobile Robots" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright CMU.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

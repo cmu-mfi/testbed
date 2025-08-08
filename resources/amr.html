@@ -1,0 +1,181 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Autonomous Mobile Robots &mdash; MFI Testbed 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=066d2f63" />
+      <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
+
+  
+    <link rel="shortcut icon" href="../_static/white-logo.ico"/>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Safety Light Curtains" href="plc.html" />
+    <link rel="prev" title="Robot Arms" href="robot_arms.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            MFI Testbed
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../system_overview.html">System Overview</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Testbed Resources</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="mes.html">Manufacturing Executive System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="robot_arms.html">Robot Arms</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Autonomous Mobile Robots</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#system-architecture">System Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#simulation-environment">Simulation Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#integration-with-mes">Integration with MES</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#other-resources">Other Resources</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="plc.html">Safety Light Curtains</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Demos</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../integrated_demo_2024.html">Integrated Demo 2024</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../loop_demo.html">Loop Demo</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/fanuc_ros1/fanuc_ros1.html">FANUC ROS1 Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/le_classmate/le_classmate.html">Lincoln Electric Classmate Laser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/amr/amr.html">Autonomous Mobile Robots</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MFI Testbed</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Autonomous Mobile Robots</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/cmu-mfi/testbed/blob/master/doc/resources/amr.md" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="autonomous-mobile-robots">
+<h1><a class="toc-backref" href="#id1" role="doc-backlink">Autonomous Mobile Robots</a><a class="headerlink" href="#autonomous-mobile-robots" title="Link to this heading"></a></h1>
+<p><a href="https://github.com/cmu-mfi/amr_testbed_v1.git" class="inline-button"><i class="fab fa-github"></i>amr_testbed_v1</a></p>
+<p><img alt="AMR" src="https://mrsd-project.herokuapp.com/images/dock_undock.gif" /></p>
+<nav class="contents" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#autonomous-mobile-robots" id="id1">Autonomous Mobile Robots</a></p>
+<ul>
+<li><p><a class="reference internal" href="#system-architecture" id="id2">System Architecture</a></p></li>
+<li><p><a class="reference internal" href="#simulation-environment" id="id3">Simulation Environment</a></p></li>
+<li><p><a class="reference internal" href="#integration-with-mes" id="id4">Integration with MES</a></p></li>
+<li><p><a class="reference internal" href="#other-resources" id="id5">Other Resources</a></p></li>
+</ul>
+</li>
+</ul>
+</nav>
+<hr class="docutils" />
+<section id="system-architecture">
+<h2><a class="toc-backref" href="#id2" role="doc-backlink">System Architecture</a><a class="headerlink" href="#system-architecture" title="Link to this heading"></a></h2>
+<p><img alt="AMR System Architecture" src="https://mrsd-project.herokuapp.com/images/robot_bringup/High%20Level.png" /></p>
+<p>Below are relevant packages of the system:</p>
+<ul class="simple">
+<li><p><strong>Global Planner</strong> (<code class="docutils literal notranslate"><span class="pre">ddg_multi_robot_planner</span></code>): Conflict-Based-Search (CBS) based ROS2 planner. It uses CBSH2-RTC mapf planner developed by Prof. Jiaoyang Li</p></li>
+<li><p><strong>Mission Control</strong> (<code class="docutils literal notranslate"><span class="pre">robot_mission_control</span></code>): It launches a node to handle multiple AMRs and their higher-level commands</p></li>
+<li><p><strong>Motion Servers</strong> (<code class="docutils literal notranslate"><span class="pre">robot_motion_server</span></code>): ROS2 action servers and client onboard robot to give navigation commands. There is a node for both navigation and docking/undocking</p></li>
+<li><p><strong>Low Level Packages</strong> (<code class="docutils literal notranslate"><span class="pre">neo_*</span></code>): These packages are originally provided by the manufacturer, <a class="reference external" href="https://neobotix-docs.de/ros/">Neobotix</a>, and handle local navigation, localization and motion.</p></li>
+</ul>
+</section>
+<section id="simulation-environment">
+<h2><a class="toc-backref" href="#id3" role="doc-backlink">Simulation Environment</a><a class="headerlink" href="#simulation-environment" title="Link to this heading"></a></h2>
+<p><em>&lt;TODO: insert simulation video/gif&gt;</em></p>
+<p><em>&lt;TODO: describe packages to use for the simulation&gt;</em></p>
+</section>
+<section id="integration-with-mes">
+<h2><a class="toc-backref" href="#id4" role="doc-backlink">Integration with MES</a><a class="headerlink" href="#integration-with-mes" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>The <a class="reference external" href="https://github.com/cmu-mfi/amr_mes_integration/xxx">amr_fleet_offboard_infra_backend</a> package receives the web request for the AMRs, and then communicates it over the ROS2 network.</p></li>
+<li><p>The <a class="reference external" href="https://github.com/cmu-mfi/amr_mes_integration/xxx">offboard_comms</a> package handles the translated web request and sends it over to the mission control</p></li>
+<li><p>The <a class="reference external" href="https://github.com/cmu-mfi/amr_mes_integration/xxx">amr_fleet_offboard_infra_frontend</a> is an alternative to MES sending web request for a task for the AMRs.</p></li>
+</ul>
+</section>
+<section id="other-resources">
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">Other Resources</a><a class="headerlink" href="#other-resources" title="Link to this heading"></a></h2>
+<iframe width="704" height="396" src="https://www.youtube.com/embed/ae9kbRRNe_k" title="MRSD Team H Capstone Project - Autonomous Material Handling for Warehouses using a fleet of AMRs" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<p><a class="reference external" href="https://mrsd-project.herokuapp.com/">https://mrsd-project.herokuapp.com/</a>
+<a class="reference external" href="https://mrsdprojects.ri.cmu.edu/2023teamh/">https://mrsdprojects.ri.cmu.edu/2023teamh/</a></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="robot_arms.html" class="btn btn-neutral float-left" title="Robot Arms" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="plc.html" class="btn btn-neutral float-right" title="Safety Light Curtains" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright CMU.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
