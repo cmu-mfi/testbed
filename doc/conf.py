@@ -10,7 +10,7 @@
 project = 'Mezzanine Lab'
 copyright = 'CMU'
 author = 'Manufacturing Futures Institute'
-release = '1.0'
+# release = '1.0'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -50,3 +50,4 @@ html_context = {
     "github_version": "master", # Version
     "conf_py_path": "/doc/", # Path in the checkout to the docs root
 }
+
