@@ -7,7 +7,7 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 # project = 'MFI Hazelbots Testbed'
-project = 'MFI Testbed'
+project = 'Mezzanine Lab'
 copyright = 'CMU'
 author = 'Manufacturing Futures Institute'
 release = '1.0'
@@ -17,6 +17,11 @@ release = '1.0'
 
 extensions = [
     'myst_parser',
+    'sphinx_copybutton'
+]
+
+myst_enable_extensions = [
+    'strikethrough'
 ]
 
 templates_path = ['_templates']
