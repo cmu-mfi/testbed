@@ -28,7 +28,7 @@ APEX-MR is an asynchronous planning and execution framework that enables multipl
 
 More details: [https://intelligent-control-lab.github.io/APEX-MR/](https://intelligent-control-lab.github.io/APEX-MR/)
 
-<iframe width="704" height="396" src="https://www.youtube.com/embed/eoCfX6a23v0" title="Multi-Robot Assembly" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="704" height="396" src="https://www.youtube.com/embed/fubJ1N2f2PI" title="Multi-Robot Assembly" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 **Contributors** \
 *Philip Huang, Ruixuan Liu, Shobhit Aggarwal, Changliu Liu, Jiaoyang Li*
@@ -96,4 +96,5 @@ tutorials/motoman_ros1/motoman_ros1.md
 tutorials/fanuc_ros1/fanuc_ros1.md
 tutorials/le_classmate/le_classmate.md
 tutorials/amr/amr.md
+
 ```
