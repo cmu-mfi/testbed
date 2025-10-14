@@ -7,10 +7,11 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 # project = 'MFI Hazelbots Testbed'
+import time
+
 project = 'Mezzanine Lab'
-copyright = 'CMU'
-author = 'Manufacturing Futures Institute'
-release = '1.0'
+author = 'Carnegie Mellon University, Manufacturing Futures Institute'
+copyright = '{}, {}'.format(time.strftime('%Y'), author)
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
