@@ -89,6 +89,12 @@ The video demonstrates an integrated system that includes an MES system, which a
 ## Site Index
 
 ```{toctree}
+:maxdepth: 1
+
+publications.md
+```
+
+```{toctree}
 :caption: Tutorials
 :maxdepth: 2
 
