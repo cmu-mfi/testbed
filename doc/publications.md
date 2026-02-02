@@ -1,6 +1,15 @@
 
 # Publications
 
+```{card} Disentangled Point Diffusion for Precise Object Placement 
+:link: https://3dgp-icra2026.github.io/
+:link-type: url
+
+**Authors:** Lyuxing He*, Eric Cai, Shobhit Aggarwal, David Held \
+*IEEE International Conference on Robotics & Automation, 2026*
+
+```
+
 ```{card} Generating physically stable and buildable brick structures from text
 :link: https://doi.org/10.48550/arXiv.2505.05469
 :link-type: url
@@ -42,6 +51,7 @@
 
 **Authors:** Kevin Zhang*, Chris Chang, Shobhit Aggarwal, Manuela Veloso, Zeynep Temel, Oliver Kroemer \
 *IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS) 2025*
+
 ```
 
 ```{card} Robot Safety Monitoring using Programmable Light Curtains
@@ -50,4 +60,5 @@
 
 **Authors:** Karnik Ram, Shobhit Aggarwal, Robert Tamburo, Siddharth Ancha, Srinivasa Narasimhan \
 *arXiv preprint arXiv:2404.03556, 2024*
+
 ```
