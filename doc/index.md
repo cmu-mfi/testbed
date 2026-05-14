@@ -1,5 +1,12 @@
 <!-- # MFI Hazelbots Testbed -->
 
+```{button-link} https://cmu-mfi.github.io/
+:color: primary
+:shadow:
+cmu-mfi.github.io
+```
+<!-- ref: https://sphinx-design.readthedocs.io/en/latest/badges_buttons.html -->
+
 # MFI Mezzanine Lab
 
 The lab features an assembly/disassembly testbed, which enables research at the intersection of manufacturing, robotics, and artificial intelligence. This flexible environment is configured to emulate high-mix/low-volume continuous manufacturing. Reconfiguration of equipment and sensors is possible to meet project-specific requirements.
