@@ -38,7 +38,7 @@ More details: [https://iamlab-cmu.github.io/GTA/](https://iamlab-cmu.github.io/G
 
 The video demonstrates use of <a href="https://github.com/cmu-mfi/fanuc_ros1" class="inline-button"><i class="fab fa-github"></i>fanuc_ros1</a> on a welding robot system. The ROS1 package enables communication between a ROS1 system and a FANUC robot controller. The package provides a set of ROS1 services and topics that allow users to control the robot's movements, read its state, and execute programs. The package also includes a set of tools for simulating the robot's movements in a virtual environment.
 
-[More details](tutorials/le_classmate/le_classmate.md)
+[More details](guides/robot_welding_le_classmate.md)
 
 <iframe width="704" height="396" src="https://www.youtube.com/embed/Izd-oDhlwkU" title="DXF Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 

@@ -1,4 +1,4 @@
-# Lincoln Electric Classmate Laser
+# Robot Welding - LE Classmate
 
 <a href="https://github.com/cmu-mfi/le_classmate_ros" class="inline-button"><i class="fab fa-github"></i>le_classmate_ros</a>
 
@@ -6,7 +6,7 @@ The Lincoln Electric Classmate Laser is a compact, all-in-one laser welding cell
 
 The network diagram for the setup at MFI is shown below:
 
-![ClassmateNetworkDiagram](../../files/LE_Classmate.jpg)
+![ClassmateNetworkDiagram](../files/LE_Classmate.jpg)
 
 The LE Classmate is capable of producing additively manufactured parts. A video showing the classmate using this ROS package to write out the letter 'MFI' is shown below.
 
@@ -18,7 +18,7 @@ The LE Classmate is capable of producing additively manufactured parts. A video 
 
 The le_classmate_ros package is an application software to handle peripheral control and process complex inputs. In the standard ROS-I architecture, it will be the top abstracted layer as shown.
 
-![SoftwareArchitecture](../../files/software_layers.jpg)
+![SoftwareArchitecture](../files/software_layers.jpg)
 
 ## le_classmate_ros Package
 
@@ -67,10 +67,3 @@ The welder class has the following methods that can be called using an instance 
 | `gas_start`        | Start shielding gas flow | Checks for gas faults and enables gas flow output.                                                         |
 | `gas_end`          | Stop shielding gas flow  | Stops gas flow output after a delay.                                                                       |
 | `set_override`     | Set override to 100      | Sets system variable OVERRIDE to 100 to enable welding and movement |
-
-## Tutorials
-
-```{toctree}
-:maxdepth: 2
-tutorials.md
-```

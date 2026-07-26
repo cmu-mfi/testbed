@@ -1,4 +1,47 @@
-## Tutorial 1 : Qt Application
+# Autonomous Mobile Robots
+
+```{contents}
+```
+
+## Hardware Setup
+
+The AMR system is based on the [Neobotix MP-400 Platform](https://www.neobotix-robots.com/products/mobile-robots/mobile-robot-mp-400) which was also built upon by the [Dock Dock Go MRSD team at CMU](https://mrsdprojects.ri.cmu.edu/2023teamh/media/). The AMR platform includes the Neobotix base, two Intel Realsense cameras, one facing the front and one the back. Through a top module that holds build plates for additive manufacturing, there are also corner pieces that protect the AMR from any collisions through the top module. It also includes an adjustable tablet holder connected to the top module. *Insert photo of AMR here*,  *Insert Diagram of Robot*
+
+The platform also includes its own integrated router that allows ros2 isolation from the bigger CMU network. This provides security for the robot, keeping it a completely closed system that does not need to connect to other networks. 
+
+*Include Pictures of the robot*
+
+
+## Software Architecture
+
+*Insert AMR Control Stack Image Here*
+
+The AMR system is built upon the Neobotix platform and all of its included packages. The waypoint server and predocking server I have made communicate with neobotix packages, nav2, as well as the docking with fiducial markers package that has been custom made [here](https://github.com/cmu-mfi/amr_docking_fiducial/tree/main). The front end provides easy communication with all the components of the AMR to allow for easy docking and waypoint saving
+
+
+### Description of topics and services
+
+**Topics:**
+
+**/waypoint_amount** - Publishes the number of waypoints
+
+**/robot_state** - Publishes the current state of the robot
+
+**Services:**
+
+**/waypoint_maker** - Waypoint Service that takes SetFlag message and controls the control flow from flags and modes given
+
+**/pre_docker_offset** - Takes input from the Waypoint server and communicates with docking_with_fiducial package to save the aruco marker offset
+
+**/pre_docker_docking** - Called from waypoint server and communicates with docking_with_fiducial package to dock to a detected aruco marker
+
+### Communication Flow
+
+Through the frontend application, you communicate with the waypoint server directly to send commands to the control stack, which communicates to the rest of the packages included (See the control flow graph above)
+
+## Tutorials
+
+### Tutorial 1 : Qt Application
 
 To launch the application from inside the robot, you run 
 
@@ -23,18 +66,18 @@ If you have a waypoint set up in front of a marker as well as a docking position
 
 *Insert Videos Here of these three processes*
 
-## Tutorial 2 : ROS 2 Interfaces
+### Tutorial 2 : ROS 2 Interfaces
 
 My project exposes many interfaces that I have made to anyone who wants to use them, including many topics and classes that can be used in future applications. 
 
-### AMR MP-400 Interface
+#### AMR MP-400 Interface
 
 This interface includes two custom server messages ```SetFlag.srv``` and ```GroundTruth.srv```. 
 
 
 More information on the definition and use of these two messages can be found on the [GitHub](https://github.com/cmu-mfi/amr_mp400_ws/tree/main/src/amr_mp400_interfaces) here
 
-### Waypoint Server
+#### Waypoint Server
 
 The Waypoint server is an integral part of the control flow, as it takes in requests from the frontend Qt Application and sends it to the rest of the control stack. 
 
@@ -45,7 +88,7 @@ ros2 service call /waypoint_maker amr_mp400_interfaces/srv/SetFlag <flags as des
 
 The waypoint server processes requests given to it and does the control flow for the whole system. 
 
-### Waypoint Client
+#### Waypoint Client
 
 This waypoint Client is an example of how to send requests to the server. The script includes 
 
@@ -73,13 +116,12 @@ def main(args=None):
 
     waypoint_client.destroy_node()
     rclpy.shutdown()
-
 ```
 
 showing how to recieve requests from the command line, process them, and send them to the server to be processed
 
 
-## Tutorial 3: Mapping
+### Tutorial 3: Mapping
 
 To map, first connect to the robot through a VNC client. The configuration for this client should include: 
 

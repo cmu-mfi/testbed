@@ -1,6 +1,6 @@
 # Motoman ROS1 Interface
 
-![Yaskawa GP4](../../files/motoman_gp4.png)
+![Yaskawa GP4](../../../files/motoman_gp4.png)
 *Four [Yaskawa GP4 robots](https://www.motoman.com/en-us/products/robots/industrial/assembly-handling/gp-series/gp4) at the testbed space*
 
 ```{contents}
@@ -24,7 +24,7 @@ Other Utils
 
 ROS interface with the Yaskawa GP4 uses [`motoman_driver`](http://wiki.ros.org/motoman_driver) and ROS-Industrial stack to plan and execute trajectory. The figure below represents the stack. Details and tutorials to setup the driver and interface can be found [here](http://wiki.ros.org/motoman_driver).
 
-![MotoROS](../../files/motoros_stack.jpg)
+![MotoROS](../../../files/motoros_stack.jpg)
 *Source: [http://wiki.ros.org/motoman_driver](http://wiki.ros.org/motoman_driver)*
 
 - **MotoROS Layer** is setup at the robot controller (YRC1000). [Details](https://wiki.ros.org/motoman_driver/Tutorials/indigo/InstallServer)
@@ -48,7 +48,7 @@ In v1.0 the robots are skilled to pick and place pallets of LEGO® baseplate and
 <!-- TODO: insert GIF of LEGO assemble/disassemble -->
 
 #### > Simulation
-![LEGO Simulation](../../files/gp4_sim.gif)
+![LEGO Simulation](../../../files/gp4_sim.gif)
 
 
 

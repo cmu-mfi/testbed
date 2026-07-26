@@ -1,3 +1,8 @@
+.wy-nav-content {
+    /* max-width: 95% !important; */
+    max-width: 64rem;
+}
+
 .wy-nav-side {
     background-color: hsl(0, 0%, 10%);
 }

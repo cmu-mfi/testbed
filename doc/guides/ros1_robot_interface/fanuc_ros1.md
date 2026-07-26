@@ -8,7 +8,7 @@ The fanuc_ros1 repository is a ROS1 interface for FANUC robot arms, specifically
 
 The fanuc_ros1 package is an interface layer that enables planning and execution via MoveIt, allows for peripheral control and launches the RViz GUI. In the standard ROS-I architecture, it would fit as shown below. Details and tutorials to setup the driver and interface can be found [here](http://wiki.ros.org/fanuc/Tutorials).
 
-![FANUC_ROS](../../files/ros_industrial_architecture.png)
+![FANUC_ROS](../../../files/ros_industrial_architecture.png)
 _Source: [http://wiki.ros.org/Industrial](http://wiki.ros.org/Industrial)_
 
 - **ROS-I Controller Layer** is setup at the robot controller (R-30iB+). [Details](https://wiki.ros.org/fanuc/Tutorials/hydro/Installation)
@@ -90,11 +90,3 @@ Note: All methods called by these elements are detailed in the Doxygen formattin
 
 ```{note}
 This package also enables Fanuc I/O control using [comet_rpc](https://github.com/gavanderhoorn/comet_rpc). Using the io.launch file, a Fanuc_IO ROS node is launched with the following functionality
-```
-
-## Tutorials
-
-```{toctree}
-:maxdepth: 2
-tutorials.md
-```

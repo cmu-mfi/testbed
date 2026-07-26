@@ -1,41 +1,35 @@
-<!-- # MFI Hazelbots Testbed -->
+# Introduction
 
 ```{button-link} https://cmu-mfi.github.io/
 :color: primary
 :shadow:
 cmu-mfi.github.io
 ```
-<!-- ref: https://sphinx-design.readthedocs.io/en/latest/badges_buttons.html -->
 
-# MFI Mezzanine Lab
-
-The lab features an assembly/disassembly testbed, which enables research at the intersection of manufacturing, robotics, and artificial intelligence. This flexible environment is configured to emulate high-mix/low-volume continuous manufacturing. Reconfiguration of equipment and sensors is possible to meet project-specific requirements.
+The MFI Mezzanine Lab features an assembly/disassembly testbed, which enables research at the intersection of manufacturing, robotics, and artificial intelligence. This flexible environment is configured to emulate high-mix/low-volume continuous manufacturing. Reconfiguration of equipment and sensors is possible to meet project-specific requirements.
 Research objectives include advancing AI-based robot planning and manipulation, developing production digital twin technologies, and supporting the orchestration of human labor. The lab aims to create and open-source algorithms relevant to manufacturing and serves as a platform for demonstrating manufacturing concepts to industry. It also supports STEM outreach initiatives.
 
-```{contents}
-:local:
-:depth: 2
-```
-
-```{include} projects.md
-```
-
-## Site Index
 
 ```{toctree}
 :maxdepth: 1
+:caption: Overview
 
 projects.md
 publications.md
 ```
-
 ```{toctree}
-:caption: Tutorials
-:maxdepth: 2
+:maxdepth: 1
+:caption: Workcells
 
-tutorials/motoman_ros1/motoman_ros1.md
-tutorials/fanuc_ros1/fanuc_ros1.md
-tutorials/le_classmate/le_classmate.md
-tutorials/amr/amr.md
+workcells/mezzanine_lab.md
+workcells/grinding_testbed.md
+```
+```{toctree}
+:maxdepth: 1
+:caption: Guides
 
+guides/ros1_robot_interface.md
+guides/ros2_robot_interface.md
+guides/autonomous_mobile_robots.md
+guides/robot_welding_le_classmate.md
 ```

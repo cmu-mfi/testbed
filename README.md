@@ -13,15 +13,15 @@ Below are TLDR steps to build html pages locally.
 ```
 git clone https://github.com/cmu-mfi/testbed.git
 cd ./testbed
-python -m venv ./.venv
-
+`python -m venv ./.venv
+`
 # Linux/macOS Terminal
 source .venv/bin/activate
 
 # Windows CMD
 call .venv\Scripts\activate.bat
 
-pip install -U sphinx sphinx_rtd_theme myst_parser sphinx_copybutton sphinx_design
+pip install -U sphinx sphinx-autobuild sphinx_rtd_theme myst_parser sphinx_copybutton sphinx_design
 ```
 
 **Build doc**
@@ -35,6 +35,11 @@ source .venv/bin/activate
 call .venv\Scripts\activate.bat
 
 cd doc
+
+# Run Sphinx with auto-build
+sphinx-autobuild . _build/html
+
+# or use make command
 make html
 ```
 
