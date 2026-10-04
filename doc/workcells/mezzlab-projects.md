@@ -1,14 +1,4 @@
-# Projects
-
-<!-- ### Autonomous Mobile Robots for Material Handling - 2025
-
-Autonomous mobile robots (AMRs) autonomously move material, parts, and tools in a factory environment floor.
-
-
-
-**Contributors** \
-Kacper Gasior
-``` -->
+## Projects
 
 ### Multi-Robot Assembly - 2025
 
