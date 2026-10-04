@@ -9,7 +9,7 @@
 # project = 'MFI Hazelbots Testbed'
 import time
 
-project = 'Mezzanine Lab'
+project = 'Robotics Workcell Cluster'
 author = 'Carnegie Mellon University, Manufacturing Futures Institute'
 copyright = '{}, {}'.format(time.strftime('%Y'), author)
 

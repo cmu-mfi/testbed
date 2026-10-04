@@ -1,4 +1,4 @@
-# Introduction
+# Robotics Workcell Cluster
 
 ```{button-link} https://cmu-mfi.github.io/
 :color: primary
@@ -6,17 +6,32 @@
 cmu-mfi.github.io
 ```
 
-The MFI Mezzanine Lab features an assembly/disassembly testbed, which enables research at the intersection of manufacturing, robotics, and artificial intelligence. This flexible environment is configured to emulate high-mix/low-volume continuous manufacturing. Reconfiguration of equipment and sensors is possible to meet project-specific requirements.
-Research objectives include advancing AI-based robot planning and manipulation, developing production digital twin technologies, and supporting the orchestration of human labor. The lab aims to create and open-source algorithms relevant to manufacturing and serves as a platform for demonstrating manufacturing concepts to industry. It also supports STEM outreach initiatives.
+**Vision: Automated high-mix manufacturing accomplished through generative multi-robot-arm cooperative manipulation**
 
+![RWC Quad](/files/rwc.png)
+
+The workcells within the Robotics Workcell Cluster (RWC) provide a platform for researchers to develop and integrate robot skills that enable teams of autonomous agents to accomplish collaborative tasks intelligently in dynamic environments. The projects focuses on building safe, scalable, and efficient robotic systems that can measure uncertainty and work across different robot brands. The tools should transfer to new tasks, support real manufacturing needs, and be shared as open-source utilities for others to use.
+
+**Technical Themes**
+* Coordinated robotic skill execution
+* Fault detection and automatic recovery
+* Collaborative multi-robot systems
+* Optimization factors (e.g., assembly time, robot-arm utilization, other)
+* Spatially aware virtualization for mixed reality
+* Fine-grained manipulation with multi-modal sensing (audio, tactile, eye-in-hand, force-torque)
+* Context-driven learning with foundational models
+* Foundation Planning Model 
+* Foundation Perception Models
+* Grounded Skill Controllers and Perception     
+
+<!-- insert figure -->
 
 ```{toctree}
 :maxdepth: 1
-:caption: Overview
 
-projects.md
 publications.md
 ```
+
 ```{toctree}
 :maxdepth: 1
 :caption: Workcells
