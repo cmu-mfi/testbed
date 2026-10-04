@@ -4,6 +4,15 @@
 
 <!-- See the {ref}`Disentangled Point Diffusion paper <tax3d>`. -->
 
+(gta2)=
+```{card} GTA-2: A Multi-VLM Framework for Synthesizing Robot Manipulation Skills via Grounded Task Axes
+:link: https://gta2-project.github.io/
+:link-type: url
+
+**Authors:** M. Yunus Seker, Shobhit Aggarwal, Ruwan Wickramarachchi, Jonathan Francis, Oliver Kroemer
+*arXiv preprint arXiv:2609.09808 (2026)*
+```
+
 (tax3d)=
 ```{card} Disentangled Point Diffusion for Precise Object Placement 
 :link: https://3dgp-icra2026.github.io/
