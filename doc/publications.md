@@ -1,6 +1,10 @@
 
 # Publications
 
+
+<!-- See the {ref}`Disentangled Point Diffusion paper <tax3d>`. -->
+
+(tax3d)=
 ```{card} Disentangled Point Diffusion for Precise Object Placement 
 :link: https://3dgp-icra2026.github.io/
 :link-type: url
@@ -10,6 +14,7 @@
 
 ```
 
+(brickgpt)=
 ```{card} Generating physically stable and buildable brick structures from text
 :link: https://doi.org/10.48550/arXiv.2505.05469
 :link-type: url
@@ -19,6 +24,7 @@
 
 ```
 
+(apexmr)=
 ```{card} APEX-MR: Multi-robot asynchronous planning and execution for cooperative assembly
 :link: https://doi.org/10.48550/arXiv.2503.15836
 :link-type: url
@@ -28,6 +34,7 @@
 
 ```
 
+(prompt-to-product)=
 ```{card} Prompt-to-Product: Generative Assembly via Bimanual Manipulation
 :link: https://doi.org/10.48550/arXiv.2508.21063
 :link-type: url
@@ -37,6 +44,7 @@
 
 ```
 
+(gta)=
 ```{card} Grounded Task Axes: Zero-Shot Semantic Skill Generalization via Task-Axis Controllers and Visual Foundation Models
 :link: https://doi.org/10.48550/arXiv.2505.11680
 :link-type: url
@@ -45,6 +53,7 @@
 *Humanoids 2025*
 ```
 
+(vibrotactile-2025)=
 ```{card} Vibrotactile Sensing for Detecting Misalignments in Precision Manufacturing
 :link: \
 :link-type: url
@@ -54,6 +63,7 @@
 
 ```
 
+(plc)=
 ```{card} Robot Safety Monitoring using Programmable Light Curtains
 :link: https://doi.org/10.48550/arXiv.2404.03556
 :link-type: url
