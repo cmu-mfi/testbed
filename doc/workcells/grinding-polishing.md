@@ -1,8 +1,8 @@
-# Robot Grinding Testbed
+# Grinding and Polishing
 
 ![rgt](/files/rgt.png)
 
-The robot grinding testbed is a workcell to explore research areas of robotic grinding. A few areas of research that groups are actively working on are listed below:
+The **robot grinding testbed** (_RGT_) is a workcell to explore research areas of robotic grinding. A few areas of research that groups are actively working on are listed below:
 
 * **Digitally Manufactured Fluidic Sensing For More Fluid Digital Manufacturing**\
 Designs and vascularizes 3D-printed fluidic sensors within flexible lattices to enable real-time force and vibration feedback during grinding.
